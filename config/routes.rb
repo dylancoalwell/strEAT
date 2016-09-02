@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :sessions
+
+  post '/users' => 'users#create'
 end
