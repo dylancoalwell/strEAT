@@ -1,5 +1,5 @@
 <h2>Login</h2>
-<%= form_for :user do |f| %>
+<%= form_for :user, url: '/sessions' do |f| %>
   <%= f.label :email %>:
   <%= f.text_field :email %><br />
 
