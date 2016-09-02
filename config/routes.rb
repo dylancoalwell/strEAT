@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'users#show'
+
+  resources :users
+  resources :sessions
 end
