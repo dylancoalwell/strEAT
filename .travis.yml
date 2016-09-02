@@ -1,0 +1,8 @@
+anguage: ruby
+rvm:
+  - 2.2.4
+
+services:
+  - postgresql
+before_install:
+  - psql -c 'create database strEAT_test;' -U postgres
