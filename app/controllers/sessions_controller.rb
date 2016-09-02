@@ -12,11 +12,16 @@ class SessionsController < ApplicationController
       @errors = ["Email not recognized"]
       render 'new'
     elsif user.authenticate(params[:user][:password])
-      current_user = user
-      redirect_to root_path
+      session[:user] = user.id
+      redirect_to user_path(user.id)
     else
       @errors = ["Unable to log in"]
-      render 'new'
+      redirect_to new_session_path
     end
+  end
+
+  def delete
+    current_user = nil
+    redirect_to root_path
   end
 end
