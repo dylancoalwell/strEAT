@@ -3,8 +3,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create!(user_params)
-    if @user.id
+    @user = User.new(user_params)
+    if @user.save
+      current_user = @user
       redirect_to root_path
     else
       render 'users#new'
