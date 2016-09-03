@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
   def search
-    @matches = []
     if params[:search]
       p params[:search]
-      @matches = User.find_by(phone: params[:search])
-      p @matches
+      if @matches = User.find_by(phone: params[:search])
+        @matches
+      else
+        redirect_to user_new_friend_path(current_user)
+      end
     else
-      @matches = []
+      redirect_to user_new_friend_path(current_user)
     end
   end
 
