@@ -16,13 +16,14 @@ class FriendsController < ApplicationController
   def destroy
   end
 
-  def friend_unfriend
+  def add_friend
     @user = User.find(params[:id])
-    if current_user.friends_with? @user
-      current_user.befriend @user
-    else
-      current_user.unfriend @user
-    end
+    current_user.befriend @user
+  end
+
+  def unfriend
+    @user = User.find(params[:user_id])
+    current_user.unfriend @user
   end
 
 

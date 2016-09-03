@@ -34,6 +34,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    current_user.befriend @user
+    redirect_to user_friends_path(current_user)
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    current_user.unfriend @user
+    redirect_to user_friends_path(current_user)
+  end
+
+
+
   private
 
   def user_params

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :users do
     get 'friends' => 'friends#index', :as => 'friends'
     get 'friends/new' => 'friends#new', :as => 'new_friend'
+
+    post 'friends' => 'friends#add_friend', :as => 'add_friend'
+    delete 'friends' => 'friends#unfriend', :as => 'unfriend'
   end
 
 end

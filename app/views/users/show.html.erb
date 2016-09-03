@@ -7,12 +7,22 @@
 <h3> <%= link_to "Map", root_path %> </h3>
 <h3> <%= link_to "Friends", user_friends_path(@user) %> </h3>
 <h3> <%= link_to "Favorite Locations" %> </h3>
-<% elsif current_user.friends.include?(@user)  %>
+
+
+<% elsif current_user.friends_with? @user  %>
 
 <h3> form to invite to lunch </h3>
 
-<% else %>
-<h3> Add as friend </h3>
-
+<%= form_for @user, url: "/users/#{@user.id}", method: 'delete' do |f| %>
+  <%= f.submit "unfriend" %>
 <% end %>
+
+
+<% else %>
+<h3> "Add as friend" </h3>
+<%= form_for @user, url: "/users/#{@user.id}" do |f| %>
+  <%= f.submit "Add Friend" %>
+
 </div>
+<% end %>
+<% end %>
