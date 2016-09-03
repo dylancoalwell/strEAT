@@ -1,4 +1,15 @@
 class UsersController < ApplicationController
+  def search
+    @matches = []
+    if params[:search]
+      p params[:search]
+      @matches = User.find_by(phone: params[:search])
+      p @matches
+    else
+      @matches = []
+    end
+  end
+
   def new
     @user = User.new
   end
@@ -32,5 +43,9 @@ class UsersController < ApplicationController
   def friends
     @user= User.find(params[:id])
     @friends = @user.friends
+  end
+
+  def find_friend
+    @friend = User.find_by(phone: params[:find_friend][:phone_number])
   end
 end

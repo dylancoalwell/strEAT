@@ -1,0 +1,6 @@
+<h2>Find Friends </h2>
+
+<%= form_tag(users_search_path, :method => "get") do %>
+<%= text_field_tag :search, params[:search], placeholder: "Find By Phone Number" %>
+<%= submit_tag "Find Friend" %>
+<% end %>
