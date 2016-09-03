@@ -1,22 +1,38 @@
-<h2>Register an Account</h2>
-<%= form_for :user, url: '/users' do |f| %>
-  <%= f.label :first_name %>:
-  <%= f.text_field :first_name %><br />
+<br><h4 class='container'>register an account</h4><br>
+<div class='container'>
+  <%= form_for :user, url: '/users' do |f| %>
+    <div class='input-field'>
+      <%= f.label :first_name %><br>
+      <%= f.text_field :first_name %><br>
+    </div>
 
-  <%= f.label :last_name %>:
-  <%= f.text_field :last_name %><br />
+    <div class='input-field'>
+      <%= f.label :last_name %><br>
+      <%= f.text_field :last_name %><br>
+    </div>
 
-  <%= f.label :email %>:
-  <%= f.text_field :email %><br />
+    <div class='input-field'>
+      <%= f.label :email %><br>
+      <%= f.text_field :email %><br>
+    </div>
 
-  <%= f.label :phone %>:
-  <%= f.text_field :phone %><br />
+    <div class='input-field'>
+      <%= f.label :phone %><br>
+      <%= f.text_field :phone %><br>
+    </div>
 
-  <%= f.label :password %>:
-  <%= f.text_field :password %><br />
+    <div class='input-field'>
+      <%= f.label :password %><br>
+      <%= f.text_field :password, type: :password %><br>
+    </div>
 
-  <%= f.label :password_confirmation %>:
-  <%= f.text_field :password_confirmation %><br />
+    <div class='input-field'>
+      <%= f.label :password_confirmation %><br>
+      <%= f.text_field :password_confirmation, type: :password %><br>
+    </div>
 
-  <%= f.submit 'Register' %>
-<% end %>
+    <div class='btn-flat'>
+      <%= f.submit 'register' %>
+    </div>
+  <% end %>
+</div>
