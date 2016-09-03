@@ -5,12 +5,25 @@ class FriendsController < ApplicationController
 
   def index
     # p params[:id]
+    puts request
     @user = User.find(params[:user_id])
     @friends = @user.friends.all
   end
 
+  def new
+  end
 
   def destroy
+  end
+
+  def add_friend
+    @user = User.find(params[:id])
+    current_user.befriend @user
+  end
+
+  def unfriend
+    @user = User.find(params[:user_id])
+    current_user.unfriend @user
   end
 
 
