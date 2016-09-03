@@ -15,11 +15,9 @@ ActiveRecord::Schema.define(version: 20160902211503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-=======
   create_table "friendships", force: :cascade do |t|
     t.string   "popular_model_type"
     t.integer  "popular_model_id"
@@ -39,7 +37,6 @@ ActiveRecord::Schema.define(version: 20160902211503) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
->>>>>>> master
   end
 
   create_table "users", force: :cascade do |t|
