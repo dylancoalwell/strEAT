@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
-  root 'users#show'
+  root 'users#index'
 
-  # post '/sessions' => 'sessions#create'
-  post '/users' => 'users#create'
+  post '/sessions' => 'sessions#create'
+  get '/sessions'=> 'sessions#new', :as => 'new_session'
   delete '/sessions' => 'sessions#delete'
 
-  resources :sessions
+
+  # resources :sessions
 
   resources :users do
     get 'friends' => 'friends#index', :as => 'friends'
   end
-    root 'users#index'
+
 end
 
 
