@@ -3,4 +3,5 @@ $(function () {
   // document.getElementById('submit').addEventListener('click', function() {
   //         geocodeAddress(geocoder);
   //       });
+  // console.log('pass')
 }); // end of document ready

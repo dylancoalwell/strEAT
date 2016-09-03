@@ -1,5 +1,8 @@
+#confirmation {
+  /*visibility: hidden;*/
+}
 .confirm-btn {
   margin-top: 20px;
-  // visibility: hidden;
-  color: red;
+   /*visibility: hidden;*/
+  color: blue;
 }
