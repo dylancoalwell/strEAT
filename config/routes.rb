@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   post '/users' => 'users#create'
   delete '/sessions' => 'sessions#delete'
 
-  resources :users
   resources :sessions
+
+  resources :users do
+    get 'friends' => 'friends#index', :as => 'friends'
+  end
+    root 'users#index'
 end
+
+
