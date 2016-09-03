@@ -1,0 +1,22 @@
+<h2>Register an Account</h2>
+<%= form_for :user, url: '/users' do |f| %>
+  <%= f.label :first_name %>:
+  <%= f.text_field :first_name %><br />
+
+  <%= f.label :last_name %>:
+  <%= f.text_field :last_name %><br />
+
+  <%= f.label :email %>:
+  <%= f.text_field :email %><br />
+
+  <%= f.label :phone %>:
+  <%= f.text_field :phone %><br />
+
+  <%= f.label :password %>:
+  <%= f.text_field :password %><br />
+
+  <%= f.label :password_confirmation %>:
+  <%= f.text_field :password_confirmation %><br />
+
+  <%= f.submit 'Register' %>
+<% end %>
