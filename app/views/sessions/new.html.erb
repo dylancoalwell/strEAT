@@ -1,0 +1,18 @@
+<br><h4 class='container'>login</h4><br>
+<div class='container'>
+  <div class='input-field'>
+    <%= form_for :user, url: '/sessions' do |f| %>
+      <%= f.label :email %><br>
+      <%= f.text_field :email %><br>
+  </div>
+
+  <div class='input-field'>
+      <%= f.label :password %><br>
+      <%= f.text_field :password, type: :password %><br>
+
+      <div class='btn-flat'>
+        <%= f.submit 'login' %>
+      </div>
+    <% end %>
+  </div>
+</div>

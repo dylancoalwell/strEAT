@@ -1,0 +1,16 @@
+<nav class='light-blue darken-3'>
+  <div class='navbar-wrapper container'>
+    <div class='brand-logo'>
+      <%= link_to 'strEAT', root_path %>
+    </div>
+    <div class='right-align'>
+      <% if logged_in? %>
+        <%= link_to current_user.first_name.capitalize, user_path(current_user) %>
+        <%= link_to "logout", sessions_path, method: :delete  %>
+      <% else %>
+        <%= link_to "login", new_session_path  %>
+        <%= link_to "register", new_user_path  %>
+      <% end %>
+    </div>
+  </div>
+</nav>
