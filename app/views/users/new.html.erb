@@ -1,3 +1,6 @@
+<% if @errors.any? %>
+ <% @errors.each do |error| %>
+
 <br><h4 class='container'>register an account</h4><br>
 <div class='container'>
   <%= form_for :user, url: '/users' do |f| %>
@@ -31,7 +34,7 @@
       <%= f.text_field :password_confirmation, type: :password %><br>
     </div>
 
-    <div class='btn-flat'>
+    <div class='waves-effect waves-light btn light-blue darken-3'>
       <%= f.submit 'register' %>
     </div>
   <% end %>
