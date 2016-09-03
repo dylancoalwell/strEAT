@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  root 'users#index'
+
+
+  resources :users do
+    get 'friends' => 'friends#index', :as => 'friends'
+  end
+    root 'users#index'
 end
+
+
