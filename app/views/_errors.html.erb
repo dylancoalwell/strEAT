@@ -1,5 +1,5 @@
 <% if @errors %>
   <% @errors.each do |error| %>
-    <p class="error"><%= error %></p>
+    <h5 class="container red-text text-accent-3"><%= error.downcase %></h5>
   <% end %>
 <% end %>

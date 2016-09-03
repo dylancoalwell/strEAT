@@ -14,6 +14,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @errors = @user.errors.full_messages
   end
 
   def show

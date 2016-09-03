@@ -1,6 +1,4 @@
-<% if @errors.any? %>
- <% @errors.each do |error| %>
-
+<%= render '/errors' %>
 <br><h4 class='container'>register an account</h4><br>
 <div class='container'>
   <%= form_for :user, url: '/users' do |f| %>
