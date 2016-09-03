@@ -6,7 +6,7 @@ services:
 env:
   - RAILS_ENV=test
 before_script:
-  - psql -c 'create database strEAT_test;' -U postgres
+  - rails db:create strEAT_test
 deploy:
   provider: heroku
   api_key:
