@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
 
     render 'show'
-    if @user = nil
+    if @user == nil
       redirect_to root_path
     end
   end
