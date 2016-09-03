@@ -1,7 +1,7 @@
 <nav>
   <%= link_to 'Home', root_path %>
-  <% if user_logged_in? %>
-    <%= link_to current_user.username.capitalize, user_path(current_user) %>
+  <% if logged_in? %>
+    <%= link_to current_user.first_name.capitalize, user_path(current_user) %>
     <%= link_to "Log Out", sessions_path, method: :delete  %>
   <% else %>
     <%= link_to "Log In", new_session_path  %>

@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
   end
 
   def delete
-    current_user = nil
+    session[:user] = nil
     redirect_to root_path
   end
 end
