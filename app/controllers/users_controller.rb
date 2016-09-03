@@ -46,8 +46,6 @@ class UsersController < ApplicationController
     redirect_to user_friends_path(current_user)
   end
 
-
-
   private
 
   def user_params
