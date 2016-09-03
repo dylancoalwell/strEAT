@@ -1,8 +1,8 @@
-<h1><%= @user.first_name %> <%= @user.last_name %>'s Profile Page</h1>
+<h1  class="container"><%= @user.first_name %> <%= @user.last_name %>'s Profile Page</h1>
 
-<h2> profile pic </h2>
+<h2 class='container'> profile pic </h2>
 
-<div>
+<div class="container">
 <% if current_user == @user %>
 <h3> <%= link_to "Map", root_path %> </h3>
 <h3> <%= link_to "Friends", user_friends_path(@user) %> </h3>

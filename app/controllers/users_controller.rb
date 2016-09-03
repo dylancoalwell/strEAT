@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @user = User.find_by_id(params[:id])
 
     render 'show'
-    if @user = nil
+    if @user == nil
       redirect_to root_path
     end
   end
@@ -29,8 +29,8 @@ class UsersController < ApplicationController
       session[:user] = @user.id
       redirect_to root_path
     else
-      @errors = user.errors.full_messages
-      render 'users#new'
+      @errors = @user.errors.full_messages
+      render 'new'
     end
   end
 
