@@ -1,0 +1,21 @@
+<h1>View your Favorite Locations</h1>
+<div id="address-search-panel">
+  <input id="address" type="textbox" VALUE="">
+  <input id="submitAddress" type="button" value="Lookup Address">
+  <div id="addressResult">
+  </div>
+</div>
+<div id="confirmation">
+    <input class="confirm-btn" type="button" id="yes-btn" value="Yes">
+    <input class="confirm-btn" type="button" id="no-btn" value="No">
+  </div>
+</div>
+<div id="form">
+  <form action="/user/1/favorite_locations" method="post">
+    <label for="name">Name for location</label>
+    <input type="text" name="name" placeholder="name"><br>
+    <input type="hidden" name="address"><br>
+    <input type="hidden" value="Add Location">
+  </form>
+</div>
+<div id="map"></div>
