@@ -1,10 +1,19 @@
-<h2>Login</h2>
-<%= form_for :user, url: '/sessions' do |f| %>
-  <%= f.label :email %>:
-  <%= f.text_field :email %><br />
+<br><h4 class='container'>login</h4><br>
+<div class='container'>
+  <div class='input-field'>
+    <%= form_for :user, url: '/sessions' do |f| %>
+      <%= f.label :email %><br>
+      <%= f.text_field :email %><br>
+  </div>
 
-  <%= f.label :password %>:
-  <%= f.text_field :password %><br />
+  <div class='input-field'>
+      <%= f.label :password %><br>
+      <%= f.text_field :password, type: :password %><br>
 
-  <%= f.submit 'Login' %>
-<% end %>
+      <div class='btn-flat'>
+        <%= f.submit 'login' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+000
