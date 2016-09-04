@@ -32,12 +32,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user] = @user.id
-      redirect_to root_path
+      redirect_to user_path(@user)
     else
       @errors = @user.errors.full_messages
       render 'new'
     end
   end
+
 
   def update
     @user = User.find(params[:id])
@@ -51,22 +52,11 @@ class UsersController < ApplicationController
     redirect_to user_friends_path(current_user)
   end
 
+
   def message
     user = User.find(params[:id])
-    message = params[:invite][:message]
-    account_sid = 'ACfa62a836d6967bb1831081646c49ba51'
-    auth_token = '9242fa23628291a0f55a4927fe86db16'
-    @client = Twilio::REST::Client.new account_sid, auth_token
-    Twilio.configure do |config|
-      config.account_sid = account_sid
-      config.auth_token = auth_token
-    end
-    @client = Twilio::REST::Client.new
-    @client.messages.create(
-      from: '+12013801772  ',
-      to: user.phone,
-      body: message
-    )
+    message_text = params[:invite][:message]
+    use_twilio(user, message_text)
     redirect_to user_friends_path(current_user)
   end
 
@@ -85,5 +75,19 @@ class UsersController < ApplicationController
     @friend = User.find_by(phone: params[:find_friend][:phone_number])
   end
 
-
+  def use_twilio(user, message_text)
+    account_sid = "account sid goes here"
+    auth_token = "authorization token goes here"
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    Twilio.configure do |config|
+      config.account_sid = account_sid
+      config.auth_token = auth_token
+    end
+    @client = Twilio::REST::Client.new
+    @client.messages.create(
+      from: '+12013801772  ',
+      to: user.phone,
+      body: "#{current_user.first_name} says: #{message_text}"
+    )
+  end
 end
