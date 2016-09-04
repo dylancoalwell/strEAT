@@ -2,6 +2,7 @@
 
 <div class='container'><%= image_tag @user.avatar.url %></div>
 
+
 <div class="container">
 
   <% if current_user == @user %>
@@ -11,6 +12,17 @@
 
   <% elsif current_user.friends_with? @user  %>
     <h3> form to invite to lunch </h3>
+
+      <%= form_for :invite, url: "/users/#{@user.id}/message" do |f| %>
+        <%= f.label :message, "Message" %>:
+        <%= f.text_field :message %>
+        <%= f.submit "Send Invite" %>
+      <% end %>
+
+
+
+
+
     <%= form_for @user, url: "/users/#{@user.id}", method: 'delete' do |f| %>
       <%= f.submit "unfriend" %>
     <% end %>
