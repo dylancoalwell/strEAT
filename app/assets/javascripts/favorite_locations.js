@@ -37,12 +37,16 @@ function displayReturnedAddress(results) {
     $("#returnedAddresses").append('<div class="address" id="address-' + index + '">' + result.formatted_address + '</div>')
   }) // end of each block
   $(".address").on('click',  function() {
-    var name = $("#favorite-name").val()
-    console.log(name)
-    console.log("target  ", event.target)
-    addressID = $(this).attr("id").split("-")[1]
+    var name = $("#favorite-name").val();
+    addressID = $(this).attr("id").split("-")[1];
     console.log(addressID)
-    saveFavoriteLocation(name, results[addressID])
+    if (name.trim() != "") {
+      saveFavoriteLocation(name, results[addressID]);
+    } else {
+      console.log($("#favorite-name"))
+      $("#favorite-name").val("Please enter a name");
+      $("#favorite-name").addClass("error");
+    }
   }) // end of click handler
 }
 
@@ -72,14 +76,22 @@ function saveFavoriteLocation(favTitle, favObj) {
       }
     }
   })
-  .done(function() {
+  .done(function(response) {
+    // debugger;
     console.log("success");
+    $("#returnedAddresses").remove();
+     var url = $(location).attr("href")
+  console.log(response.responseText)
+    // $("#returnedAddresses").append('<div class="return-link"> ' + result.formatted_address + '</div>')
+
   })
-  .fail(function() {
-    console.log("error");
+  .fail(function(response) {
+    console.log("in fail")
+    console.log(response);
   })
   .always(function() {
-    console.log("complete");
+    console.log("in always")
+    // console.log("complete");
   });
 
   $("#returnedAddresses").remove();
@@ -89,19 +101,3 @@ function saveFavoriteLocation(favTitle, favObj) {
 
 }
 
-// '<div id="form">
-//   <form action="/user/1/favorite_locations" method="post">
-//     <label for="name">Name for location</label>
-//     <input type="text" name="name" placeholder="name"><br>
-//     <input type="hidden" name="address"><br>
-//     <input type="hidden" value="Add Location">
-//   </form>
-// </div>
-// '
-
-
-// name
-// address
-// lat
-// lng
-// user_id
