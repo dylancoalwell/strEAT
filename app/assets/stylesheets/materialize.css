@@ -4227,9 +4227,7 @@ nav .input-field label i {
 
 nav .input-field label.active i {
   color: #fff;
-}
-
-nav .input-field label.active {
+}nav .input-field label.active {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
@@ -4291,6 +4289,7 @@ nav .input-field label.active {
 
 a {
   text-decoration: none;
+  color: #212121;
 }
 
 html {

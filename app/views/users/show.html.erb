@@ -1,6 +1,6 @@
 <h1  class="container"><%= @user.first_name %> <%= @user.last_name %>'s Profile Page</h1>
 
-<h2 class='container'> profile pic </h2>
+<div class='container'><%= image_tag @user.avatar.url %></div>
 
 
 <div class="container">
