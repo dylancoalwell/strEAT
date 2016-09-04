@@ -1,13 +1,13 @@
 
-<%= @user.first_name %>'s Friends
+<h2 class='container'><%= @user.first_name %>'s Friends</h2>
 
 
-<h2><%= link_to "Find Friends", user_new_friend_path %></h2>
+<h2 class='container'><%= link_to "Find Friends", user_new_friend_path %></h2>
 
 
 
 
 
 <% @user.friends.each do |friend| %>
-<h2> <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %> </h2>
+<h2 class='container'> <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %> </h2>
 <% end %>
