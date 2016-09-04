@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   # resources :sessions
   # resources :favorite_locations
 
+  # below is route to map initialization
+  get '/directions/:id' => 'directions#new', :as => 'new_directions' 
+
   resources :users do
-    get 'favorite_locations' => 'favorite_locations#index', :as => 'favorite_locations'
+    get 'favorite_locations' => 'favorite_locations#index', :as => 'favorites'
       # resources :favorite_locations
     get 'friends' => 'friends#index', :as => 'friends'
     get 'friends/new' => 'friends#new', :as => 'new_friend'
@@ -23,5 +26,3 @@ Rails.application.routes.draw do
   end
 
 end
-
-
