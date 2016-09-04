@@ -6,10 +6,15 @@ Rails.application.routes.draw do
   delete '/sessions' => 'sessions#delete'
 
   get '/users/search' => 'users#search', :as => 'users_search'
+  post '/users/:id/favorite_locations' => 'favorite_locations#create'
+  get '/users/:id/favorite_locations/new' => 'favorite_locations#new'
 
   # resources :sessions
+  # resources :favorite_locations
 
   resources :users do
+    get 'favorite_locations' => 'favorite_locations#index', :as => 'favorite_locations'
+      # resources :favorite_locations
     get 'friends' => 'friends#index', :as => 'friends'
     get 'friends/new' => 'friends#new', :as => 'new_friend'
 

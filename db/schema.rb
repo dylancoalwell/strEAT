@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 20160902211503) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "favorite_locations", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.string   "address",    null: false
+    t.float    "lat",        null: false
+    t.float    "lng",        null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friendships", force: :cascade do |t|
     t.string   "popular_model_type"
     t.integer  "popular_model_id"
