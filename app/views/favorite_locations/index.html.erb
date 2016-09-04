@@ -1,10 +1,19 @@
-<h3>View your Favorite Locations</h3>
+<!-- <h3>View your Favorite Locations</h3>
 <div id="map"></div>
 <div id="favorite-location">
   <div id="address-search-panel">
     <input id="address" type="textbox" VALUE="">
     <input id="submitAddress" type="button" value="Lookup Address">
   </div>
+</div> -->
+
+<div class="container">
+  <div id="favorite-list">
+    <% @user.favorite_locations.each do |location| %>
+      <div class="address">
+        <h5 class="center"><%= location.name %></h5>
+        <p class="center"><%= location.address %></p>
+      </div>
+    <% end %>
+  </div>
 </div>
-
-
