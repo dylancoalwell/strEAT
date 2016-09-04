@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/users/search' => 'users#search', :as => 'users_search'
   post '/users/:id/favorite_locations' => 'favorite_locations#create'
   get '/users/:id/favorite_locations/new' => 'favorite_locations#new'
+  post '/users/:id/message' => 'users#message', :as => 'users_message'
 
   # resources :sessions
   # resources :favorite_locations
