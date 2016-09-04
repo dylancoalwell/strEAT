@@ -4,11 +4,13 @@ require 'twilio-ruby'
 class UsersController < ApplicationController
   def search
     if params[:search]
-      p params[:search]
       if @matches = User.find_by(phone: params[:search])
         @matches
       else
-        redirect_to user_new_friend_path(current_user)
+        user = User.new(phone: params[:search])
+        message_text = "I have invited you to join strEAT. Click here to register and join the fun! http://streat.herokuapp.com/users/new"
+        use_twilio(user, message_text)
+        redirect_to user_path(current_user)
       end
     else
       redirect_to user_new_friend_path(current_user)
@@ -76,9 +78,11 @@ class UsersController < ApplicationController
     @friend = User.find_by(phone: params[:find_friend][:phone_number])
   end
 
+
+
   def use_twilio(user, message_text)
-    account_sid = "account sid goes here"
-    auth_token = "authorization token goes here"
+    account_sid = "API KEY GOES HERE"
+    auth_token = "AUTHTOKEN GOES HERE"
     @client = Twilio::REST::Client.new account_sid, auth_token
     Twilio.configure do |config|
       config.account_sid = account_sid

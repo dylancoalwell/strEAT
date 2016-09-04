@@ -31,6 +31,7 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 gem 'popular'
 gem 'twilio-ruby', '~> 4.11.1'
+gem 'rb-readline'
 
 # paperclip
 gem "paperclip", "~> 5.0.0"
