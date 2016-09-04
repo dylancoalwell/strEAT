@@ -29,7 +29,6 @@ function handleCreatingFavoriteAddress(geocoder) {
 // It will loop through all the results sent by the geocode lookup
 // Each item will appear as an option
 function displayReturnedAddress(results) {
-  console.log(results)
   // append select to returnedAddresses div
   $("#address-search-panel").append('<div id="returnedAddresses"></div>')
   $("#returnedAddresses").append('<label>Enter name of location<input id="favorite-name" type="textbox" VALUE=""></label>')
@@ -55,18 +54,22 @@ function displayReturnedAddress(results) {
 // This function will allow the user to assign a name to the location
 // and save address to the users favorite locations
 function saveFavoriteLocation(favTitle, favObj) {
-  // remove address selector
-  // show saved name input box
-  // submit ajax to save location
+  var url = $(location).attr("href")
+  console.log(url)
+  var re = /(\S*)(\/users)(\S*)(\/new)/i
+  var postUrl = url.replace(re,("$2$3"))
+  console.log("posturl",postUrl)
 
   $ajaxRequest = $.ajax({
-    url: '/favorite_locations',
+    url: postUrl,
     method: 'POST',
     data: {
-      name: favTitle,
-      address: favObj.formatted_address,
-      lat: favObj.geometry.location.lat(),
-      lng: favObj.geometry.location.lng()
+      favorite_location: {
+        name: favTitle,
+        address: favObj.formatted_address,
+        lat: favObj.geometry.location.lat(),
+        lng: favObj.geometry.location.lng()
+      }
     }
   })
   .done(function() {

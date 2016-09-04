@@ -1,26 +1,35 @@
 class FavoriteLocationsController < ApplicationController
   def index
-    if !logged_in?
-      redirect_to root_path
-    end
+    # if !logged_in?
+    #   redirect_to root_path
+    # end
   end
 
   def create
-    if @user = current_user
-      if @favorite_location = @user.favorite_locations.create(params[:favorite_location])
+    puts "\n\n\n in create"
+    puts params.inspect
+    @user = User.find_by(id: params[:id])
+    if @user == current_user
+      puts "user is #{@user.first_name}"
+      puts "user is #{current_user.first_name}"
+      if @favorite_location = @user.favorite_locations.create(favorite_location_params)
           # if request.xhr()
           # else
           # end
         # redirect to favorites location
-        puts "functioning favorite_location creats functionality"
+        puts "\n\nfunctioning favorite_location creats functionality"
       else
-        if request.xhr()
-        else
-        end
+
+        # commenting out xhr for the moment
+        # if request.xhr()
+        # else
+        # end
         @errors = @favorite_location.errors.full_messages
+        puts @errors
         # return error data
       end
     else
+      puts "\n\nMust be logged in"
       # return message saying they must be logged in
     end
   end
