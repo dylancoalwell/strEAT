@@ -8,9 +8,10 @@ function initMap() {
 
   var geocoder = new google.maps.Geocoder();
 
-  // function geocodeAddress is located in favorite_locations.js
-  document.getElementById('submitAddress').addEventListener('click', function() {           handleCreatingFavoriteAddress(geocoder);
-  });
+  $("#submitAddress").on("click", function() {
+    $("#returnedAddresses").remove();
+    handleCreatingFavoriteAddress(geocoder);
+  }) // end of submit button handler
 } // end of initMap
 
 // - we want to input an address into search box

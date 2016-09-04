@@ -1,6 +1,10 @@
 // This function allows a user to input an address and
 // will be looked up in Google Maps
 // called by google-maps.js
+function setFavoriteLocation() {
+  console.log('click:')
+}
+
 function handleCreatingFavoriteAddress(geocoder) {
   // # make this a part a view function?
   var address = document.getElementById('address').value;
@@ -28,53 +32,57 @@ function displayReturnedAddress(results) {
   console.log(results)
   // append select to returnedAddresses div
   $("#address-search-panel").append('<div id="returnedAddresses"></div>')
-  $("#returnedAddresses").html('<form id="addressSelector"></form>')
-  $("#addressSelector")
+  $("#returnedAddresses").append('<label>Enter name of location<input id="favorite-name" type="textbox" VALUE=""></label>')
+  $("#returnedAddresses").append('<p>Select favorite location from below</p>')
   $.each(results, function(index, result) {
-    $("#addressSelector").append(
-    $('<input type="radio" name="' + index +  '" value="' + result.formatted_address + '" class="address" /> '  + result.formatted_address + '<br>'))
+    $("#returnedAddresses").append('<div class="address" id="address-' + index + '">' + result.formatted_address + '</div>')
   }) // end of each block
-
-  $("#addressSelector").append($('<input id="add-submit" type="submit" type="button" value="Add Favorite">'))
-  $("#returnedAddresses").on("submit","#addressSelector", function(event) {
-    event.preventDefault()
-
-    var selectedIndex = $(".address:checked").attr("name");
-    saveFavoriteLocation(results[selectedIndex]);
-    $("#addressSelector").remove();
-
-  }) // end of submit block
-
-  // # this code ensures the active radio button is selected
-  $('#address-search-panel').on('change', 'input[type=radio]', function(){
-    $('input[type=radio]').not(this).prop('checked', false);
-  }); // end of unique radio button logic
+  $(".address").on('click',  function() {
+    var name = $("#favorite-name").val()
+    console.log(name)
+    console.log("target  ", event.target)
+    addressID = $(this).attr("id").split("-")[1]
+    console.log(addressID)
+    saveFavoriteLocation(name, results[addressID])
+  }) // end of click handler
 }
 
 
+//find
 
 
 // called by displayReturnedAddress
 // This function will allow the user to assign a name to the location
 // and save address to the users favorite locations
-function saveFavoriteLocation(favorite) {
+function saveFavoriteLocation(favTitle, favObj) {
   // remove address selector
   // show saved name input box
   // submit ajax to save location
 
-  var address = favorite.formatted_address;
-  var lat = favorite.geometry.location.lat();
-  var lng = favorite.geometry.location.lng();
-  console.log("address: ", address, "lat: ", lat, "lng: ", lng)
-  // var data = {
-  //   name: favorite.formatted_address
+  $ajaxRequest = $.ajax({
+    url: '/favorite_locations',
+    method: 'POST',
+    data: {
+      name: favTitle,
+      address: favObj.formatted_address,
+      lat: favObj.geometry.location.lat(),
+      lng: favObj.geometry.location.lng()
+    }
+  })
+  .done(function() {
+    console.log("success");
+  })
+  .fail(function() {
+    console.log("error");
+  })
+  .always(function() {
+    console.log("complete");
+  });
 
-  // }
-  console.log("lat" + favorite.geometry.location.lat())
-  $("#addressSelector").remove();
-  var saveLocationData =
-  '<div id="saveLocation"><form action="/user/1/favorite_locations" method="post"><label for="name">Name for location</label><input type="text" name="name" placeholder="name"><br><input type="hidden" name="address"><br><input type="hidden" value="Add Location"></form></div>';
-  $("#favorite-location").append(saveLocationData);
+  $("#returnedAddresses").remove();
+  // var saveLocationData =
+  // '<div id="saveLocation"><form action="/user/1/favorite_locations" method="post"><label for="name">Name for location</label><input type="text" name="name" placeholder="name"><br><input type="hidden" name="address"><br><input type="hidden" value="Add Location"></form></div>';
+  // $("#favorite-location").append(saveLocationData);
 
 }
 
