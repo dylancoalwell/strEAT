@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'twilio-ruby'
+
 class UsersController < ApplicationController
   def search
     if params[:search]
@@ -48,6 +51,25 @@ class UsersController < ApplicationController
     redirect_to user_friends_path(current_user)
   end
 
+  def message
+    user = User.find(params[:id])
+    message = params[:invite][:message]
+    account_sid = 'ACfa62a836d6967bb1831081646c49ba51'
+    auth_token = '9242fa23628291a0f55a4927fe86db16'
+    @client = Twilio::REST::Client.new account_sid, auth_token
+    Twilio.configure do |config|
+      config.account_sid = account_sid
+      config.auth_token = auth_token
+    end
+    @client = Twilio::REST::Client.new
+    @client.messages.create(
+      from: '+12013801772  ',
+      to: user.phone,
+      body: message
+    )
+    redirect_to user_friends_path(current_user)
+  end
+
   private
 
   def user_params
@@ -62,4 +84,6 @@ class UsersController < ApplicationController
   def find_friend
     @friend = User.find_by(phone: params[:find_friend][:phone_number])
   end
+
+
 end
