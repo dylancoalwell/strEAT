@@ -11,7 +11,7 @@
   <div id="favorite-list">
     <% @user.favorite_locations.each do |location| %>
       <div class="address">
-        <h5 class="center"><%= location.name %></h5>
+        <h4 class="center"><%= link_to location.name, new_directions_path(location), :class => "seeable-link" %></h4>
         <p class="center"><%= location.address %></p>
       </div>
     <% end %>
