@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       redirect_to user_path(@user)
     else
       @errors = ["Unable to log in"]
-      redirect_to new_session_path
+      render 'new'
     end
   end
 
