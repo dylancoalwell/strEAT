@@ -3,7 +3,7 @@ require 'twilio-ruby'
 
 class UsersController < ApplicationController
   def search
-    if params[:search]
+    if params[:search] != ""
       if @matches = User.find_by(phone: params[:search])
         @matches
       else
@@ -95,8 +95,8 @@ class UsersController < ApplicationController
 
 
   def use_twilio(user, message_text)
-    account_sid = "API KEY GOES HERE"
-    auth_token = "AUTHTOKEN GOES HERE"
+    account_sid = ENV['TWILIO_ACCT_SID']
+    auth_token = ENV['TWILIO_AUTH_KEY']
     @client = Twilio::REST::Client.new account_sid, auth_token
     Twilio.configure do |config|
       config.account_sid = account_sid
