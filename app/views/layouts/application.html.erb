@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class='blue darken-1 white-text'>
+  <body class='blue darken-1 white-text' data-no-turbolink='true'>
     <%= render '/nav' %>
     <%= yield %>
   </body>

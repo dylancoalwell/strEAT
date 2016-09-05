@@ -1,8 +1,8 @@
 <%= render '/errors' %>
 <br><h4 class='container center-align'>login</h4><br>
 <div class='container'>
-  <div class='input-field'>
     <%= form_for :user, url: '/sessions' do |f| %>
+  <div class='input-field'>
       <%= f.label :email %><br>
       <%= f.text_field :email %><br>
   </div>
@@ -10,10 +10,10 @@
   <div class='input-field'>
       <%= f.label :password %><br>
       <%= f.text_field :password, type: :password %><br>
-
-      <button class='waves-effect waves-light btn light-blue darken-3 right' type="submit" name="action">login
-        <i class="material-icons right">keyboard_arrow_right</i>
-      </button>
-    <% end %>
   </div>
+
+  <button class='waves-effect waves-light btn light-blue darken-3 right' type="submit" name="action">login
+    <i class="material-icons right">keyboard_arrow_right</i>
+  </button>
 </div>
+    <% end %>
