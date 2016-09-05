@@ -1,6 +1,11 @@
 class FavoriteLocationsController < ApplicationController
   def index
-    if !logged_in?
+    puts params.inspect
+    if logged_in?
+      user = User.find(params[:user_id])
+      @favorite_locations = user.favorite_locations
+      render 'index'
+    else
       redirect_to root_path
     end
   end

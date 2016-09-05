@@ -1,0 +1,172 @@
+<html>
+  <head>
+    <script async defer
+        src=
+        "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&v=3&callback=initMap">
+    </script>
+    <script type="text/javascript" src="routeboxer.js"></script>
+  </head>
+  <body>
+    <style type="text/css">
+      #map {
+   width: 600px;
+   height: 600px;
+   top: 0;
+   left: 0;
+   position: absolute;
+ }
+    </style>
+     <div id="floating-panel">
+    <b>Start: </b>
+    <select id="start">
+      <option value="200 n state, chicago, il">Chicago</option>
+      <option value="st louis, mo">St Louis</option>
+      <option value="joplin, mo">Joplin, MO</option>
+      <option value="oklahoma city, ok">Oklahoma City</option>
+      <option value="amarillo, tx">Amarillo</option>
+      <option value="gallup, nm">Gallup, NM</option>
+      <option value="flagstaff, az">Flagstaff, AZ</option>
+      <option value="winona, az">Winona</option>
+      <option value="kingman, az">Kingman</option>
+      <option value="barstow, ca">Barstow</option>
+      <option value="san bernardino, ca">San Bernardino</option>
+      <option value="los angeles, ca">Los Angeles</option>
+    </select>
+    <b>End: </b>
+    <select id="end">
+      <option value="100 s oak park ave, oak park, il">oak park</option>
+      <option value="st louis, mo">St Louis</option>
+      <option value="joplin, mo">Joplin, MO</option>
+      <option value="oklahoma city, ok">Oklahoma City</option>
+      <option value="amarillo, tx">Amarillo</option>
+      <option value="gallup, nm">Gallup, NM</option>
+      <option value="flagstaff, az">Flagstaff, AZ</option>
+      <option value="winona, az">Winona</option>
+      <option value="kingman, az">Kingman</option>
+      <option value="barstow, ca">Barstow</option>
+      <option value="san bernardino, ca">San Bernardino</option>
+      <option value="los angeles, ca">Los Angeles</option>
+    </select>
+    </div>
+    <div id="map"></div>
+    <script>
+      var map;
+      var service;
+      function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 41.85, lng: -87.65}
+        });
+        directionsDisplay.setMap(map);
+        service = new google.maps.places.PlacesService(map);
+        // calculateAndDisplayRoute(directionsService, directionsDisplay);
+        findPlaces(directionsDisplay);
+        // var onChangeHandler = function() {
+        //   calculateAndDisplayRoute(directionsService, directionsDisplay);
+        // };
+        // document.getElementById('start').addEventListener('change', onChangeHandler);
+        // document.getElementById('end').addEventListener('change', onChangeHandler);
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        directionsService.route({
+          origin: new google.maps.LatLng(41.922093, -87.664296),
+          destination: new google.maps.LatLng(41.889247, -87.796135),
+          travelMode: 'WALKING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+
+
+    // Direction service for route boxer
+
+    function findPlaces(directionsDisplay) {
+      var directionService = new google.maps.DirectionsService();
+      // var directionsDisplay = new google.maps.DirectionsRenderer;
+
+      var routeBoxer = new RouteBoxer();
+      var distance = 1.1; // km
+      directionService.route({
+          origin: new google.maps.LatLng(41.922093, -87.664296),
+          destination: new google.maps.LatLng(41.889247, -87.796135),
+          travelMode: 'WALKING'
+        }
+        , function(result, status) {
+       if (status == google.maps.DirectionsStatus.OK) {
+             directionsDisplay.setDirections(result);
+
+             // Box around the overview path of the first route
+             var path = result.routes[0].overview_path;
+             bounds = routeBoxer.box(path, distance);
+            // console.log(bounds)
+
+             searchBounds(bounds);
+           } else {
+             alert("Directions query failed: " + status);
+           }
+      });
+    }
+
+    /*
+    * The search function is wrap around a for loop with a setTimeout so that the request are throttled to an avg of 10 a second that is the max request you can make on google
+    */
+
+    function searchBounds(bound) {
+      // console.log(bound.length
+       for (var i = 0; i < bound.length; i++) {
+       // for (var i = 0; i < bound; i++) {
+         (function(i) {
+           setTimeout(function() {
+
+             // Perform search on the bound and save the result
+             performSearch(bound[i]);
+
+             //If the last box
+             if ((bound.length - 1) === i) {
+               addAllMarkers(bound);
+             }
+           }, 400 * i);
+         }(i));
+       }
+     }
+
+
+     function performSearch(bound) {
+       var request = {
+         bounds: bound,
+         keyword: 'McDonalds'
+       };
+
+       currentBound = bound;
+       service.radarSearch(request, callback);
+
+     }
+
+     // Call back function from the radar search
+
+     function callback(results, status) {
+       if (status !== google.maps.places.PlacesServiceStatus.OK) {
+         console.error(status);
+         return;
+       }
+          console.log(results[0])
+       var result;
+       // for (var i = 0, result; result = results[i]; i++) { //original
+        // for (var i = 0; results.length; i++) {
+         // Go through each result from the search and if the place exist already in our list of places then done push it in to the array
+         // if (!placeExists(result.id)) {
+         //   allPlaces.push(result);
+         // }
+       // }
+     }
+    </script>
+  </body>
+</html>
+
