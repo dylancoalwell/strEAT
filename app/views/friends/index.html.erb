@@ -25,7 +25,7 @@
 			      </div>
 			    </span><br><br>
 			    <div class='waves-effect waves-light btn light-blue darken-3'>
-						<%= link_to "Call: #{friend.phone}", url: "tel:+1#{friend.phone}"  %>
+						<a href="tel:+<%= friend.phone %>">Call</a>
 					</div>
 				</div>
 			</div>
