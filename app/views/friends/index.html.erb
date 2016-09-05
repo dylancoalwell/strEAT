@@ -1,4 +1,12 @@
 <br>
+<div class='center'>
+	<div class='waves-effect waves-light btn light-blue darken-3'>
+	  <i class="material-icons left">search</i>
+	  <%= link_to "find friends", user_new_friend_path %>
+	</div>
+</div>
+
+<br>
 <ul class="collection-header with">
 	<li class="collection-header center"><h5><%= @user.first_name %>'s Friends</h5></li>
 	<% @user.friends.each do |friend| %>
@@ -13,7 +21,7 @@
 				<div class="col s8 black-text">
 					<span class="title">
 						<div class='waves-effect waves-light btn light-blue darken-3'>
-			        <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %> 
+			        <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %>
 			      </div>
 			    </span>
 					<p><%= friend.phone %></p>
@@ -24,10 +32,3 @@
 </ul>
 	<% end %>
 
-<br>
-<div class='center'>
-	<div class='waves-effect waves-light btn light-blue darken-3'>
-	  <i class="material-icons left">search</i> 
-	  <%= link_to "find friends", user_new_friend_path %> 
-	</div>
-</div>

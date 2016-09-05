@@ -9,60 +9,75 @@
         <h5><%= @user.first_name %> <%= @user.last_name %></h5><br>
         <p><%= @user.email %></p><br>
         <p><%= @user.phone %></p><br>
+        <% if current_user == @user %>
+          <div class='center'>
+            <div class='waves-effect waves-light btn blue-grey'>
+              <%= link_to "Edit Account" %>
+            </div>
+          </div>
+        <% elsif current_user.friends_with? @user %>
+          <%= form_for @user, url: "/users/#{@user.id}", method: 'delete' do |f| %>
+            <div class='right'>
+              <div class='waves-effect waves-light btn blue-grey'>
+                <%= f.submit "Unfriend" %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <%= form_for @user, url: "/users/#{@user.id}" do |f| %>
+            <div class='center'>
+              <div class='waves-effect waves-light btn blue-grey'>
+                <%= f.submit "Add Friend" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 <br>
 
+
 <div class="container">
 
   <% if current_user == @user %>
     <div class='center'>
-      <div class='waves-effect waves-light btn light-blue darken-3 white-text'> 
+      <div class='waves-effect waves-light btn btn-block btn-large light-blue darken-3 center-buttons'>
         <i class="material-icons left">directions</i>
-        <%= link_to "Map", root_path %> 
+        <%= link_to "Map", root_path %>
       </div>
     </div><br>
     <div class='center'>
-      <div class='waves-effect waves-light btn light-blue darken-3'>
+      <div class='waves-effect waves-light btn btn-block btn-large light-blue darken-3 center-buttons'>
         <i class="material-icons left">account_circle</i>
-        <%= link_to "Friends", user_friends_path(@user) %> 
+        <%= link_to "Friends", user_friends_path(@user) %>
       </div>
     </div><br>
     <div class='center'>
-      <div class='waves-effect waves-light btn light-blue darken-3'>
-        <i class="material-icons left">place</i> 
-        <%= link_to "Favorites" %> 
+      <div class='waves-effect waves-light btn btn-block btn-large light-blue darken-3 center-buttons'>
+        <i class="material-icons left">place</i>
+        <%= link_to "Favorites" %>
       </div>
     </div><br>
 
   <% elsif current_user.friends_with? @user  %>
-    <h3> form to invite to lunch </h3>
+
+    <h4 class='container center-align'>Invite</h4><br>
+    <div class='container'>
 
       <%= form_for :invite, url: "/users/#{@user.id}/message" do |f| %>
-        <%= f.label :message, "Message" %>:
+      <div class='input-field'>
+        <%= f.label :message, "message" %>
         <%= f.text_field :message %>
-        <%= f.submit "Send Invite" %>
-      <% end %>
-
-
-
-
-
-    <%= form_for @user, url: "/users/#{@user.id}", method: 'delete' do |f| %>
-      <%= f.submit "unfriend" %>
-    <% end %>
-
-  <% else %>
-    <%= form_for @user, url: "/users/#{@user.id}" do |f| %>
-      <div class='center'>
-        <div class='waves-effect waves-light btn light-blue darken-3'>
-          <i class="material-icons left">add</i>
-          <%= f.submit "Add Friend" %>
-        </div>
       </div>
-    <% end %>
+      <div class='center'>
+        <button class='waves-effect waves-light btn light-blue darken-3' type="submit" name="action">send invite
+          <i class="material-icons right">keyboard_arrow_right</i>
+        </button>
+      </div>
+      <% end %>
+    </div>
 
   <% end %>
 
