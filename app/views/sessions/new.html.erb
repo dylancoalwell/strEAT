@@ -1,8 +1,8 @@
 <%= render '/errors' %>
 <br><h4 class='container center-align'>login</h4><br>
 <div class='container'>
-  <div class='input-field'>
     <%= form_for :user, url: '/sessions' do |f| %>
+  <div class='input-field'>
       <%= f.label :email %><br>
       <%= f.text_field :email %><br>
   </div>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   post '/sessions' => 'sessions#create'
   get '/sessions/new'=> 'sessions#new', :as => 'new_session'
+  get '/sessions' => 'sessions#new'
   delete '/sessions' => 'sessions#delete'
 
   get '/users/search' => 'users#search', :as => 'users_search'
