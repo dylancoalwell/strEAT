@@ -1,14 +1,26 @@
-<h1  class="container"><%= @user.first_name %> <%= @user.last_name %>'s Profile Page</h1>
-
-<div class='container'><%= image_tag @user.avatar.url %></div>
-
+<div class='container'>
+  <div class='row>'>
+    <div class='card horizontal purple'>
+      <div class='card-image'>
+        <img class='responsive-img' src='<%= @user.avatar.url %>'> 
+        <div class='card-title'>
+          <p><%= @user.first_name %> <%= @user.last_name %></p>
+        </div>
+      </div>
+      <div class='card-content black-text'>
+        <p><%= @user.email %></p><br>
+        <p><%= @user.phone %></p><br>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container">
 
   <% if current_user == @user %>
-    <h3> <%= link_to "Map", root_path %> </h3>
-    <h3> <%= link_to "Friends", user_friends_path(@user) %> </h3>
-    <h3> <%= link_to "Favorite Locations" %> </h3>
+    <p class='btn-large center'> <%= link_to "Map", root_path %> </p>
+    <p class='btn-large center'> <%= link_to "Friends", user_friends_path(@user) %> </p>
+    <p class='btn-large waves-effect waves-light'> <%= link_to "Favorite Locations" %> </p>
 
   <% elsif current_user.friends_with? @user  %>
     <h3> form to invite to lunch </h3>

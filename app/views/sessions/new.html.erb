@@ -1,5 +1,5 @@
-<br><h4 class='container center-align'>login</h4><br>
 <%= render '/errors' %>
+<br><h4 class='container center-align'>login</h4><br>
 <div class='container'>
   <div class='input-field'>
     <%= form_for :user, url: '/sessions' do |f| %>
@@ -11,9 +11,9 @@
       <%= f.label :password %><br>
       <%= f.text_field :password, type: :password %><br>
 
-      <div class='waves-effect waves-light btn light-blue darken-3 right'>
-        <%= f.submit 'login' %>
-      </div>
+      <button class='waves-effect waves-light btn light-blue darken-3 right' type="submit" name="action">login
+        <i class="material-icons right">keyboard_arrow_right</i>
+      </button>
     <% end %>
   </div>
 </div>
