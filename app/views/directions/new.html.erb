@@ -36,41 +36,104 @@
         $.ajax({
           url: finalUrl
         }).done(function (res) {
+
           console.log("responding...")
           console.log(res)
+
           var directionsService = new google.maps.DirectionsService;
           var directionsRenderer = new google.maps.DirectionsRenderer;
-          console.log("initMap")
 
           var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
             center: {lat: 41.85, lng: -87.65}
           });
 
+          console.log("new map variable/object set")
+
           directionsRenderer.setMap(map);
+
+          service = new google.maps.places.PlacesService(map);
+          console.log("service set")
+
           calculateAndDisplayRoute(directionsService, directionsRenderer, position, res)
+
         })
-
-
-        // navigator.geolocation.getCurrentPosition(calculateOriginAndDestination)
       }
 
       function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
+        console.log("calculateAndDisplayRoute")
+        var routeBoxer = new RouteBoxer();
+
+        var distance = 0.001; // km
+
         directionsService.route({
           origin: new google.maps.LatLng(origin.coords.latitude, origin.coords.longitude),
           destination:  new google.maps.LatLng(destination.lat, destination.lng),
           travelMode: 'WALKING'
         }, function(response, status) {
+          console.log("directions service route setup good")
           if (status === 'OK') {
+            console.log("good status")
             directionsRenderer.setDirections(response);
+
+            var path = response.routes[0].overview_path;
+            bounds = routeBoxer.box(path, distance);
+
+            searchBounds(bounds);
+
           } else {
+            console.log("have to stop trying to touch the sun")
             window.alert('Directions request failed due to ' + status);
           }
         });
       }
 
+      function searchBounds(bounds) {
+        console.log("search bounds running")
+        for (var i = 0; i < bounds.length; i++) {
+          console.log("looping i at:", i)
+          (function (i) {
+            console.log("anon func running with i at:", i)
+            setTimeout(function () {
+              console.log("timeout runnning with i at:", i)
+              performSearch(bounds[i]);
+            }, 650 * i);
+          }(i));
+        }
+      }
 
-    // Direction service for route boxer
-    var directionService = new google.maps.DirectionsService();
-    var routeboxer = new RouteBoxer();
+      function performSearch(bound) {
+        var nearRequest = {
+          bounds: bound,
+          keyword: 'Burgers',
+          openNow: true
+        };
+
+        // currentBound = bound;
+        service.nearbySearch(nearRequest, nearCallback)
+      }
+
+      function nearCallback(results, status) {
+        console.log(status)
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          for (var i = 0; i < results.length; i++) {
+            var place = results[i];
+            console.log(place)
+            createMarker(results[i]);
+          }
+        }
+        console.log(status)
+      }
+
+      function createMarker(place) {
+        var location = place.geometry.location;
+        var marker = new google.maps.Marker({
+          map: map,
+          position: place.geometry.location
+        });
+      }
+
+    // // Direction service for route boxer
+    // var directionService = new google.maps.DirectionsService();
+    // var routeboxer = new RouteBoxer();
 </script>
