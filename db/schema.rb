@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160904003033) do
+ActiveRecord::Schema.define(version: 20160905150414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "articles", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "friendships", force: :cascade do |t|
     t.string   "popular_model_type"
@@ -44,12 +37,8 @@ ActiveRecord::Schema.define(version: 20160904003033) do
     t.string   "email"
     t.string   "phone"
     t.string   "password_digest"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.string   "avatars_file_name"
-    t.string   "avatars_content_type"
-    t.integer  "avatars_file_size"
-    t.datetime "avatars_updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
