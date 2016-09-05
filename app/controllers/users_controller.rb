@@ -73,8 +73,12 @@ class UsersController < ApplicationController
   def message
     user = User.find(params[:id])
     message_text = params[:invite][:message]
-    use_twilio(user, message_text)
-    redirect_to user_friends_path(current_user)
+    if message_text != ""
+      use_twilio(user, message_text)
+      redirect_to user_friends_path(current_user)
+    else
+      redirect_to user_path(user)
+    end
   end
 
   private
