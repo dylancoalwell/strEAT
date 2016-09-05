@@ -1,0 +1,55 @@
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=GOOGLE_API_KEY&callback=handleDirections">
+    </script>
+
+    <style type="text/css">
+      #map {
+        width: 600px;
+        height: 600px;
+      }
+    </style>
+
+    <div id="map"></div>
+    <div id="fuckme"></div>
+    <script>
+    console.log("new view doing stuffs")
+      //     navigator.geolocation.getCurrentPosition(showPosition);
+      function handleDirections() {
+        console.log("handleDirections")
+        navigator.geolocation.getCurrentPosition(initMap)
+      }
+
+      function initMap(position) {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsRenderer = new google.maps.DirectionsRenderer;
+        console.log("initMap")
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 41.85, lng: -87.65}
+        });
+
+        directionsRenderer.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsRenderer, position)
+        // navigator.geolocation.getCurrentPosition(calculateOriginAndDestination)
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsRenderer, origin) {
+        console.log("calcDisRoute position: ", origin)
+        directionsService.route({
+          origin: new google.maps.LatLng(origin.coords.latitude, origin.coords.longitude),
+          destination:  new google.maps.LatLng(41.889247, -87.796135),
+          travelMode: 'WALKING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsRenderer.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+
+
+    // Direction service for route boxer
+    var directionService = new google.maps.DirectionsService();
+    var routeboxer = new RouteBoxer();
+</script>

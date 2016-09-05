@@ -1,5 +1,8 @@
 $(function () {
   console.log('directions script running');
+  function test(input) {
+    console.log(input)
+  }
 });
 
 // function being used in this mannor that is part of weird-error-1
