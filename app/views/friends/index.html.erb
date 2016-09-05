@@ -10,12 +10,12 @@
 <ul class="collection-header with">
 	<li class="collection-header center"><h5><%= @user.first_name %>'s Friends</h5></li>
 	<% @user.friends.each do |friend| %>
-	<div class="col s12 m8 offset-m2 l6 offset-l3">
+	<div class="container col s12 m8 offset-m2 l6 offset-l3">
     <div class="card-panel grey lighten-5 z-depth-1">
 			<div class="row valign-wrapper">
 		    <div class="col s4">
 					<li class="collection-item avatar">
-						<img src='<%= friend.avatar.url %>' alt="" class="circle responsive-img">
+						<img src='<%= friend.avatar.url(:thumb) %>' alt="" class="circle responsive-img">
 					</li>
 				</div>
 				<div class="col s8 black-text">
@@ -23,8 +23,10 @@
 						<div class='waves-effect waves-light btn light-blue darken-3'>
 			        <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %>
 			      </div>
-			    </span>
-					<p><%= friend.phone %></p>
+			    </span><br><br>
+			    <div class='waves-effect waves-light btn light-blue darken-3'>
+						<%= link_to "Call: #{friend.phone}", url: "tel:+1#{friend.phone}"  %>
+					</div>
 				</div>
 			</div>
 		</div>
