@@ -1,26 +1,41 @@
+<br>
 <div class='container'>
   <div class='row>'>
-    <div class='card horizontal purple'>
-      <div class='card-image'>
-        <img class='responsive-img' src='<%= @user.avatar.url %>'> 
-        <div class='card-title'>
-          <p><%= @user.first_name %> <%= @user.last_name %></p>
-        </div>
+    <div class='card horizontal light-blue darken-3 valign-wrapper'>
+      <div class='card-image valign'>
+        <img class='responsive-img' src='<%= @user.avatar.url %>'>
       </div>
-      <div class='card-content black-text'>
+      <div class='card-content white-text'>
+        <h5><%= @user.first_name %> <%= @user.last_name %></h5><br>
         <p><%= @user.email %></p><br>
         <p><%= @user.phone %></p><br>
       </div>
     </div>
   </div>
 </div>
+<br>
 
 <div class="container">
 
   <% if current_user == @user %>
-    <p class='btn-large center'> <%= link_to "Map", root_path %> </p>
-    <p class='btn-large center'> <%= link_to "Friends", user_friends_path(@user) %> </p>
-    <p class='btn-large waves-effect waves-light'> <%= link_to "Favorite Locations" %> </p>
+    <div class='center'>
+      <div class='waves-effect waves-light btn light-blue darken-3 white-text'> 
+        <i class="material-icons left">directions</i>
+        <%= link_to "Map", root_path %> 
+      </div>
+    </div><br>
+    <div class='center'>
+      <div class='waves-effect waves-light btn light-blue darken-3'>
+        <i class="material-icons left">account_circle</i>
+        <%= link_to "Friends", user_friends_path(@user) %> 
+      </div>
+    </div><br>
+    <div class='center'>
+      <div class='waves-effect waves-light btn light-blue darken-3'>
+        <i class="material-icons left">place</i> 
+        <%= link_to "Favorites" %> 
+      </div>
+    </div><br>
 
   <% elsif current_user.friends_with? @user  %>
     <h3> form to invite to lunch </h3>
@@ -40,9 +55,13 @@
     <% end %>
 
   <% else %>
-    <h3> "Add as friend" </h3>
     <%= form_for @user, url: "/users/#{@user.id}" do |f| %>
-      <%= f.submit "Add Friend" %>
+      <div class='center'>
+        <div class='waves-effect waves-light btn light-blue darken-3'>
+          <i class="material-icons left">add</i>
+          <%= f.submit "Add Friend" %>
+        </div>
+      </div>
     <% end %>
 
   <% end %>

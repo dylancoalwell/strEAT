@@ -1,13 +1,33 @@
+<br>
+<ul class="collection-header with">
+	<li class="collection-header center"><h5><%= @user.first_name %>'s Friends</h5></li>
+	<% @user.friends.each do |friend| %>
+	<div class="col s12 m8 offset-m2 l6 offset-l3">
+    <div class="card-panel grey lighten-5 z-depth-1">
+			<div class="row valign-wrapper">
+		    <div class="col s4">
+					<li class="collection-item avatar">
+						<img src='<%= friend.avatar.url %>' alt="" class="circle responsive-img">
+					</li>
+				</div>
+				<div class="col s8 black-text">
+					<span class="title">
+						<div class='waves-effect waves-light btn light-blue darken-3'>
+			        <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %> 
+			      </div>
+			    </span>
+					<p><%= friend.phone %></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</ul>
+	<% end %>
 
-<h2 class='container'><%= @user.first_name %>'s Friends</h2>
-
-
-<h2 class='container'><%= link_to "Find Friends", user_new_friend_path %></h2>
-
-
-
-
-
-<% @user.friends.each do |friend| %>
-<h2 class='container'> <%= link_to "#{friend.first_name} #{friend.last_name}", user_path(friend ) %> </h2>
-<% end %>
+<br>
+<div class='center'>
+	<div class='waves-effect waves-light btn light-blue darken-3'>
+	  <i class="material-icons left">search</i> 
+	  <%= link_to "find friends", user_new_friend_path %> 
+	</div>
+</div>
