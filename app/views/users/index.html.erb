@@ -6,26 +6,32 @@ Map goes here!!
   <head>
     <style>
  #map {
-        width: 400px;
-        height: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
      }
     </style>
   </head>
+  <center>
   <body>
-    <div id="map"></div>
-    <script>
-      function initMap() {
-        var mapDiv = document.getElementById('map');
-        var map = new google.maps.Map(mapDiv, {
-            center: {lat: 41.89, lng: -87.637},
-            zoom: 15
-        });
-      }
-    </script>
+    <div id="map">
+      <script>
+        function initMap() {
+          var mapDiv = document.getElementById('map');
+          var map = new google.maps.Map(mapDiv, {
+              center: {lat: 41.89, lng: -87.637},
+              zoom: 15
+          });
+        }
+      </script>
+    </div>
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=!!!!!!GOOGLEMAPSAPIGOESHERE!!!!!&callback=initMap">
+        src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_KEY']}&callback=initMap"%>>
     </script>
   </body>
+  </center>
 </html>
 
 
