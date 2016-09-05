@@ -15,6 +15,16 @@ class FavoriteLocationsController < ApplicationController
     end
   end
 
+  def show
+    @favorite = FavoriteLocation.find(params[:id])
+    if request.xhr?
+      puts "HHHHHHHHHHHHHHHHHHHHHHHHH--------ajax request-------HHHHHHHHHHHHHHHHHHHHHHH"
+      render :json => @favorite
+    else
+      puts "------------------FUUUUUUUUUUUUUUUUUUUUUCK--normal request--FUUUUUUUUUUUUUUUUUUUUUUUCK"
+    end
+  end
+
   private
 
   def favorite_location_params

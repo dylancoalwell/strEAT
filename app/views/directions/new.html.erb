@@ -1,4 +1,4 @@
-    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=GOOGLE_API_KEY&callback=handleDirections">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&v=3&callback=handleDirections">
     </script>
 
     <style type="text/css">
@@ -12,32 +12,53 @@
     <div id="fuckme"></div>
     <script>
     console.log("new view doing stuffs")
-      //     navigator.geolocation.getCurrentPosition(showPosition);
+
       function handleDirections() {
-        console.log("handleDirections")
-        navigator.geolocation.getCurrentPosition(initMap)
+          navigator.geolocation.getCurrentPosition(initMap, geolocationErrorHandler, {
+            enableHighAccuracy: true
+          })
+      }
+
+      function geolocationErrorHandler() {
       }
 
       function initMap(position) {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsRenderer = new google.maps.DirectionsRenderer;
-        console.log("initMap")
+        var url = $(location).attr('href')
+        var re = /(\S*)(\/directions)(\S*)/i
+        var postUrl = url.replace(re,("$3"))
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: {lat: 41.85, lng: -87.65}
-        });
+        console.log("postURL", postUrl)
 
-        directionsRenderer.setMap(map);
-        calculateAndDisplayRoute(directionsService, directionsRenderer, position)
+        var finalUrl =  '/favorite_locations' +  postUrl
+
+        console.log(finalUrl)
+
+        $.ajax({
+          url: finalUrl
+        }).done(function (res) {
+          console.log("responding...")
+          console.log(res)
+          var directionsService = new google.maps.DirectionsService;
+          var directionsRenderer = new google.maps.DirectionsRenderer;
+          console.log("initMap")
+
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: 41.85, lng: -87.65}
+          });
+
+          directionsRenderer.setMap(map);
+          calculateAndDisplayRoute(directionsService, directionsRenderer, position, res)
+        })
+
+
         // navigator.geolocation.getCurrentPosition(calculateOriginAndDestination)
       }
 
-      function calculateAndDisplayRoute(directionsService, directionsRenderer, origin) {
-        console.log("calcDisRoute position: ", origin)
+      function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
         directionsService.route({
           origin: new google.maps.LatLng(origin.coords.latitude, origin.coords.longitude),
-          destination:  new google.maps.LatLng(41.889247, -87.796135),
+          destination:  new google.maps.LatLng(destination.lat, destination.lng),
           travelMode: 'WALKING'
         }, function(response, status) {
           if (status === 'OK') {
