@@ -5912,7 +5912,7 @@ textarea.materialize-textarea + label:after {
 }
 
 .input-field label {
-  color: #fff;
+  color: #546e7a;
   position: absolute;
   top: 0.8rem;
   font-size: 1rem;
@@ -8485,3 +8485,8 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .center-buttons {
   width: 70%;
 }
+
+html {
+  font-family: 'Montserrat', sans-serif;
+}
+
