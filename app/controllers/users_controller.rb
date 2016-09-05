@@ -3,7 +3,7 @@ require 'twilio-ruby'
 
 class UsersController < ApplicationController
   def search
-    if params[:search]
+    if params[:search] != ""
       if @matches = User.find_by(phone: params[:search])
         @matches
       else
