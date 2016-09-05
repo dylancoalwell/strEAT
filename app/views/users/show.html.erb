@@ -1,14 +1,41 @@
-<h1  class="container"><%= @user.first_name %> <%= @user.last_name %>'s Profile Page</h1>
-
-<div class='container'><%= image_tag @user.avatar.url %></div>
-
+<br>
+<div class='container'>
+  <div class='row>'>
+    <div class='card horizontal light-blue darken-3 valign-wrapper'>
+      <div class='card-image valign'>
+        <img class='responsive-img' src='<%= @user.avatar.url %>'>
+      </div>
+      <div class='card-content white-text'>
+        <h5><%= @user.first_name %> <%= @user.last_name %></h5><br>
+        <p><%= @user.email %></p><br>
+        <p><%= @user.phone %></p><br>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
 
 <div class="container">
 
   <% if current_user == @user %>
-    <h3> <%= link_to "Map", root_path %> </h3>
-    <h3> <%= link_to "Friends", user_friends_path(@user) %> </h3>
-    <h3> <%= link_to "Favorite Locations" %> </h3>
+    <div class='center'>
+      <div class='waves-effect waves-light btn light-blue darken-3 white-text'> 
+        <i class="material-icons left">directions</i>
+        <%= link_to "Map", root_path %> 
+      </div>
+    </div><br>
+    <div class='center'>
+      <div class='waves-effect waves-light btn light-blue darken-3'>
+        <i class="material-icons left">account_circle</i>
+        <%= link_to "Friends", user_friends_path(@user) %> 
+      </div>
+    </div><br>
+    <div class='center'>
+      <div class='waves-effect waves-light btn light-blue darken-3'>
+        <i class="material-icons left">place</i> 
+        <%= link_to "Favorites" %> 
+      </div>
+    </div><br>
 
   <% elsif current_user.friends_with? @user  %>
     <h3> form to invite to lunch </h3>
@@ -28,9 +55,13 @@
     <% end %>
 
   <% else %>
-    <h3> "Add as friend" </h3>
     <%= form_for @user, url: "/users/#{@user.id}" do |f| %>
-      <%= f.submit "Add Friend" %>
+      <div class='center'>
+        <div class='waves-effect waves-light btn light-blue darken-3'>
+          <i class="material-icons left">add</i>
+          <%= f.submit "Add Friend" %>
+        </div>
+      </div>
     <% end %>
 
   <% end %>
