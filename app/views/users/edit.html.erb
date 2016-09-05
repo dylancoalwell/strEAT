@@ -1,8 +1,8 @@
 <%= render '/errors' %>
-<br><h4 class='container center-align'>register an account</h4><br>
+<br><h4 class='container center-align'>edit your account</h4><br>
 
 <div class='container'>
-  <%= form_for :user, url: '/users' do |f| %>
+  <%= form_for :user, url: "/users/#{@user.id}", method: 'PATCH' do |f| %>
     <div class='input-field'>
       <%= f.label :first_name %><br>
       <%= f.text_field :first_name %><br>
@@ -34,11 +34,11 @@
     </div>
 
     <div class='file-field waves-effect waves-light btn blue-grey darken-1 right'>
-      <%= f.label :upload_profile_picture %><br>
+      <%= f.label :change_profile_picture %><br>
       <%= f.file_field :avatar %><br>
     </div><br><br><br>
 
-    <button class='waves-effect waves-light btn blue-grey darken-1 right' type="submit" name="action">register
+    <button class='waves-effect waves-light btn blue-grey darken-1 right' type="submit" name="action">edit
       <i class="material-icons left">done</i>
     </button>
   <% end %>

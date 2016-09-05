@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get '/users/search' => 'users#search', :as => 'users_search'
   post '/users/:id/message' => 'users#message', :as => 'users_message'
+  patch '/users/:id' => 'users#update_user'
 
   # resources :sessions
 
