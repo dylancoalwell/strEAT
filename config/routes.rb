@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get '/users/search' => 'users#search', :as => 'users_search'
   post '/users/:id/favorite_locations' => 'favorite_locations#create'
-  get '/users/:id/favorite_locations/new' => 'favorite_locations#new'
+  # get '/users/:id/favorite_locations/new' => 'favorite_locations#new'
   post '/users/:id/message' => 'users#message', :as => 'users_message'
   patch '/users/:id' => 'users#user_update'
   post '/users/:id' => 'users#update'
@@ -22,6 +22,8 @@ Rails.application.routes.draw do
 
   resources :users do
     get 'favorite_locations' => 'favorite_locations#index', :as => 'favorites'
+    get 'favorite_locations/new' => 'favorite_locations#new', :as => 'new_favorite'
+
       # resources :favorite_locations
     get 'friends' => 'friends#index', :as => 'friends'
     get 'friends/new' => 'friends#new', :as => 'new_friend'
