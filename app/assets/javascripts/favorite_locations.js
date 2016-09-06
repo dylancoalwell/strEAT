@@ -1,27 +1,30 @@
 $(document).ready(function () {
-  var geocoder;
+  var geocoder = new google.maps.Geocoder();;
 
   console.log("check, FavoriteLocation");
 
   $('#submitAddress').on('click', function () {
-    geocoder = new google.maps.Geocoder();
     handleCreatingFavoriteAddress(geocoder);
   })
 })
 
-function handleCreatingFavoriteAddress() {
+function handleCreatingFavoriteAddress(geocoder) {
+
+  console.log("test")
+
   var address = document.getElementById('address').value;
 
   geocoder.geocode({'address': address}, function(results, status) {
 
     var confirmation;
+
     if (status === google.maps.GeocoderStatus.OK) {
       displayReturnedAddress(results)
     } else {
       console.log('errors were encountered');
     }
-  });
 
+  });
 
 }
 
@@ -41,11 +44,16 @@ function displayReturnedAddress(results) {
   }) // end of each block
 
   $(".address").on('click',  function() {
+
     var name = $("#favorite-name").val()
+
     console.log(name)
     console.log("target  ", event.target)
+
     addressID = $(this).attr("id").split("-")[1]
+
     console.log(addressID)
+
     saveFavoriteLocation(name, results[addressID])
   }) // end of click handler
 }
