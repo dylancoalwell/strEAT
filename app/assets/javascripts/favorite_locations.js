@@ -1,16 +1,12 @@
 $(document).ready(function () {
   var geocoder = new google.maps.Geocoder();;
 
-  console.log("check, FavoriteLocation");
-
-  $('#submitAddress').on('click', function () {
+  $('#submit-favorite-address').on('click', function () {
     handleCreatingFavoriteAddress(geocoder);
   })
 })
 
 function handleCreatingFavoriteAddress(geocoder) {
-
-  console.log("test")
 
   var address = document.getElementById('address').value;
 
@@ -23,7 +19,6 @@ function handleCreatingFavoriteAddress(geocoder) {
     } else {
       console.log('errors were encountered');
     }
-
   });
 
 }
@@ -35,7 +30,7 @@ function handleCreatingFavoriteAddress(geocoder) {
 function displayReturnedAddress(results) {
   // append select to returnedAddresses div
 
-  $("#address-search-panel").append('<div id="returnedAddresses"></div>')
+  $("#favorite-address-search-panel").append('<div id="returnedAddresses"></div>')
   $("#returnedAddresses").append('<label>Enter name of location<input id="favorite-name" type="textbox" VALUE=""></label>')
   $("#returnedAddresses").append('<p>Select favorite location from below</p>')
 
@@ -47,12 +42,7 @@ function displayReturnedAddress(results) {
 
     var name = $("#favorite-name").val()
 
-    console.log(name)
-    console.log("target  ", event.target)
-
     addressID = $(this).attr("id").split("-")[1]
-
-    console.log(addressID)
 
     saveFavoriteLocation(name, results[addressID])
   }) // end of click handler
@@ -60,10 +50,8 @@ function displayReturnedAddress(results) {
 
 function saveFavoriteLocation(favTitle, favObj) {
   var url = $(location).attr("href")
-  console.log(url)
   var re = /(\S*)(\/users)(\S*)(\/new)/i
   var postUrl = url.replace(re,("$2$3"))
-  console.log("posturl",postUrl)
 
   $ajaxRequest = $.ajax({
     url: postUrl,
@@ -77,8 +65,10 @@ function saveFavoriteLocation(favTitle, favObj) {
       }
     }
   })
-  .done(function() {
+  .done(function(response) {
     console.log("success");
+    console.log($("#returnedAddresses"))
+    $("#returnedAddresses").remove();
   })
   .fail(function() {
     console.log("error");
@@ -87,5 +77,6 @@ function saveFavoriteLocation(favTitle, favObj) {
     console.log("complete");
   });
 
-  $("#returnedAddresses").remove();
+
+
 }
