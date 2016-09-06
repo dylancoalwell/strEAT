@@ -1,5 +1,5 @@
-<br><h4 class='container'>register an account</h4><br>
-
+<%= render '/errors' %>
+<br><h4 class='container center-align'>register an account</h4><br>
 
 <div class='container'>
   <%= form_for :user, url: '/users' do |f| %>
@@ -10,7 +10,7 @@
 
     <div class='input-field'>
       <%= f.label :last_name %><br>
-      <%= f.text_field :last_name %><br>
+      <%= f.text_field :last_name, label: 'last name' %><br>
     </div>
 
     <div class='input-field'>
@@ -33,8 +33,13 @@
       <%= f.text_field :password_confirmation, type: :password %><br>
     </div>
 
-    <div class='btn-flat'>
-      <%= f.submit 'register' %>
-    </div>
+    <div class='file-field waves-effect waves-light btn blue-grey darken-1 right'>
+      <%= f.label :upload_profile_picture %><br>
+      <%= f.file_field :avatar %><br>
+    </div><br><br><br>
+
+    <button class='waves-effect waves-light btn blue-grey darken-1 right' type="submit" name="action">register
+      <i class="material-icons left">done</i>
+    </button>
   <% end %>
 </div>

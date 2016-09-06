@@ -3,12 +3,14 @@ require 'twilio-ruby'
 
 class UsersController < ApplicationController
   def search
-    if params[:search]
-      p params[:search]
+    if params[:search] != ""
       if @matches = User.find_by(phone: params[:search])
         @matches
       else
-        redirect_to user_new_friend_path(current_user)
+        user = User.new(phone: params[:search])
+        message_text = "I have invited you to join strEAT. Click here to register and join the fun! http://streat.herokuapp.com/users/new"
+        use_twilio(user, message_text)
+        redirect_to user_path(current_user)
       end
     else
       redirect_to user_new_friend_path(current_user)
@@ -17,6 +19,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @errors = @user.errors.full_messages
   end
 
   def show
@@ -39,6 +42,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def user_update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      redirect_to @user
+    else
+      @errors = @user.errors.full_messages
+      render 'edit'
+    end
+  end
+
 
   def update
     @user = User.find(params[:id])
@@ -56,14 +73,18 @@ class UsersController < ApplicationController
   def message
     user = User.find(params[:id])
     message_text = params[:invite][:message]
-    use_twilio(user, message_text)
-    redirect_to user_friends_path(current_user)
+    if message_text != ""
+      use_twilio(user, message_text)
+      redirect_to user_friends_path(current_user)
+    else
+      redirect_to user_path(user)
+    end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :avatar)
   end
 
   def friends
@@ -75,9 +96,11 @@ class UsersController < ApplicationController
     @friend = User.find_by(phone: params[:find_friend][:phone_number])
   end
 
+
+
   def use_twilio(user, message_text)
-    account_sid = "account sid goes here"
-    auth_token = "authorization token goes here"
+    account_sid = ENV['TWILIO_ACCT_SID']
+    auth_token = ENV['TWILIO_AUTH_KEY']
     @client = Twilio::REST::Client.new account_sid, auth_token
     Twilio.configure do |config|
       config.account_sid = account_sid

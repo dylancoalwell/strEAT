@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>StrEAT</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,7 +11,7 @@
   </head>
 
 
-  <body class='blue darken-1 white-text'>
+  <body class='grey lighten-3 blue-grey-text lighten-3'>
     <%= render '/nav' %>
     <%= yield %>
   </body>

@@ -1,6 +1,13 @@
-<h2>Find Friends </h2>
+<ul class="collection-header with">
+  <li class="collection-header center"><h5>Search for Contacts</h5></li></ul>
 
-<%= form_tag(users_search_path, :method => "get") do %>
-<%= text_field_tag :search, params[:search], placeholder: "Find By Phone Number" %>
-<%= submit_tag "Find Friend" %>
-<% end %>
+<div class='container'>
+  <%= form_tag(users_search_path, :method => "get") do %>
+  <div class='input-field'>
+    <%= text_field_tag :search, params[:search], placeholder: "find by phone number" %>
+  </div>
+  <div class='waves-effect waves-light btn blue-grey darken-1'>
+    <%= submit_tag "Find Contact" %>
+  </div>
+  <% end %>
+</div>

@@ -31,6 +31,13 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 gem 'popular'
 gem 'twilio-ruby', '~> 4.11.1'
+gem 'rb-readline'
+gem "dotenv"
+gem 'figaro'
+
+# paperclip
+gem "paperclip", "~> 5.0.0"
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
