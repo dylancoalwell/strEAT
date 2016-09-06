@@ -8,6 +8,8 @@ class FavoriteLocationsController < ApplicationController
     @user = User.find_by(id: params[:id])
     if @user == current_user
       if @favorite_location = @user.favorite_locations.create(favorite_location_params)
+        # respond_to :html, :js
+        render :json => {user_id: @user.id}
       else
         @errors = @favorite_location.errors.full_messages
       end
@@ -18,10 +20,7 @@ class FavoriteLocationsController < ApplicationController
   def show
     @favorite = FavoriteLocation.find(params[:id])
     if request.xhr?
-      puts "HHHHHHHHHHHHHHHHHHHHHHHHH--------ajax request-------HHHHHHHHHHHHHHHHHHHHHHH"
       render :json => @favorite
-    else
-      puts "------------------FUUUUUUUUUUUUUUUUUUUUUCK--normal request--FUUUUUUUUUUUUUUUUUUUUUUUCK"
     end
   end
 
