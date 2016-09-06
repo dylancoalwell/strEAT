@@ -93,7 +93,8 @@ function handleDirections() {
         var nearRequest = {
           location: pathNode,
           radius: 100,
-          keyword: 'Burgers',
+          // keyword: 'Burgers',
+          type: 'restaurant',
           openNow: true
         };
         var service = new google.maps.places.PlacesService(map);
@@ -105,6 +106,7 @@ function handleDirections() {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
             var place = results[i];
+            // debugger;
             createMarker(results[i]);
           }
         }
@@ -115,6 +117,14 @@ function handleDirections() {
         var location = place.geometry.location;
         var marker = new google.maps.Marker({
           map: map,
-          position: place.geometry.location
+          position: place.geometry.location,
+          title: place.name
+        });
+        var infowindow = new google.maps.InfoWindow({
+          content: place.name + '<br>' + place.vicinity
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
         });
       }
