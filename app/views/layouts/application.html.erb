@@ -2,20 +2,19 @@
 <html>
   <head>
     <title>StrEAT</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+     <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&v=3">
+     </script>
   </head>
 
 
-  <body class='blue darken-1 white-text'>
+  <body class='grey lighten-3 blue-grey-text'>
     <%= render '/nav' %>
     <%= yield %>
-    <script async defer
-     src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&callback=initMap">
-    </script>
-
-
   </body>
 </html>

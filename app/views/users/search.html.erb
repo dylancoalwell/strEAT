@@ -1,0 +1,29 @@
+<ul class="collection-header with">
+  <li class="collection-header center"><h5>Search Results </h5></li>
+    <div class="col s12 m8 offset-m2 l6 offset-l3">
+      <div class="card-panel grey lighten-5 z-depth-1">
+       <div class="row valign-wrapper">
+        <div class="col s4">
+         <li class="collection-item avatar">
+          <img src='<%= @matches.avatar.url %>' alt="" class="circle responsive-img">
+          </li>
+        </div>
+          <div class="col s8 black-text">
+          <span class="title">
+            <div class='waves-effect waves-light btn blue-grey darken-1'>
+              <%= link_to "#{@matches.first_name} #{@matches.last_name}", user_path(@matches ) %>
+            </div>
+          </span>
+          <p><%= @matches.phone %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ul>
+
+
+
+
+
+
+

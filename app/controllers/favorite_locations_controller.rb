@@ -6,6 +6,8 @@ class FavoriteLocationsController < ApplicationController
   end
 
   def new
+    redirect_to root_path unless logged_in?
+    @user = User.find(params[:user_id])
   end
 
   def create
@@ -34,6 +36,21 @@ class FavoriteLocationsController < ApplicationController
       if request.xhr?
         render :nothing => true, status: 403
       end
+      if @favorite_location = @user.favorite_locations.create(favorite_location_params)
+      else
+        @errors = @favorite_location.errors.full_messages
+      end
+    else
+    end
+  end
+
+  def show
+    @favorite = FavoriteLocation.find(params[:id])
+    if request.xhr?
+      puts "HHHHHHHHHHHHHHHHHHHHHHHHH--------ajax request-------HHHHHHHHHHHHHHHHHHHHHHH"
+      render :json => @favorite
+    else
+      puts "--------------------normal request--"
     end
   end
 

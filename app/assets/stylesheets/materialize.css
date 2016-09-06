@@ -4227,9 +4227,7 @@ nav .input-field label i {
 
 nav .input-field label.active i {
   color: #fff;
-}
-
-nav .input-field label.active {
+}nav .input-field label.active {
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
@@ -4291,6 +4289,7 @@ nav .input-field label.active {
 
 a {
   text-decoration: none;
+  color: #fff;
 }
 
 html {
@@ -4521,7 +4520,7 @@ small {
 
 .card-panel {
   transition: box-shadow .25s;
-  padding: 20px;
+  padding: 10px;
   margin: 0.5rem 0 1rem 0;
   border-radius: 2px;
   background-color: #fff;
@@ -5913,7 +5912,7 @@ textarea.materialize-textarea + label:after {
 }
 
 .input-field label {
-  color: #fff;
+  color: #546e7a;
   position: absolute;
   top: 0.8rem;
   font-size: 1rem;
@@ -8458,4 +8457,43 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   .picker--time .picker__box {
     margin-bottom: 5em;
   }
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v17/2fcrYFNaTjcS6g4U3t-Y5ewrjPiaoEww8AihgqWRJAo.woff) format('woff');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.center-buttons {
+  width: 70%;
+}
+
+#map {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+}
+
+html {
+  font-family: 'Montserrat', sans-serif;
 }

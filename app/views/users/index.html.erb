@@ -1,1 +1,14 @@
-Map goes here!!
+<div id="map">
+  <script>
+    function initMap() {
+      var mapDiv = document.getElementById('map');
+      var map = new google.maps.Map(mapDiv, {
+          center: {lat: 41.89, lng: -87.637},
+          zoom: 15
+      });
+    }
+  </script>
+</div>
+<script async defer
+    src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_KEY']}"%>>
+</script>
