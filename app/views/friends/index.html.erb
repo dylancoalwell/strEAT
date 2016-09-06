@@ -8,28 +8,36 @@
 
 <br>
 <ul class="collection-header with">
-	<li class="collection-header center"><h5><%= @user.first_name %>'s Contacts</h5></li>
+	<% if current_user == @user %>
+		<li class="collection-header center"><h5>Contacts</h5></li>
+	<% else %>
+		<li class="collection-header center"><h5><%= @user.first_name %>'s Friends</h5></li>
+	<% end %>
 	<% @user.friends.each do |friend| %>
 	<div class="container col s12 m8 offset-m2 l6 offset-l3">
-    <div class="card-panel red darken-4">
-			<div class="row valign-wrapper">
-		    <div class="col s4">
-					<p class="collection-item avatar">
-						<img src='<%= friend.avatar.url(:thumb) %>' alt="" class="circle responsive-img">
-					</p>
-				</div>
-				<div class="col l4 s8 black-text">
-					<span class="title">
-						<div class='waves-effect waves-light btn blue-grey lighten-1 right center-buttons'>
-			        <%= link_to "#{friend.first_name}", user_path(friend ) %>
-			      </div>
-			    </span><br><br>
-			    <div class='waves-effect waves-light btn blue-grey lighten-1 right center-buttons'>
-						<a href="tel:+<%= friend.phone %>">Call</a>
+		<span>
+	    <div class="card-panel red darken-4">
+				<div class="row valign-wrapper">
+			    <div class="col s4">
+						<p class="collection-item avatar">
+							<img src='<%= friend.avatar.url(:thumb) %>' alt="" class="circle responsive-img">
+						</p>
+					</div>
+					<div class="col l4 s8 black-text">
+						<span class="title">
+							<div class='waves-effect waves-light btn blue-grey lighten-1 right center-buttons'>
+				        <%= link_to "#{friend.first_name}", user_path(friend ) %>
+				      </div>
+				    </span><br><br>
+				    <div class='waves-effect waves-light btn blue-grey lighten-1 right center-buttons'>
+				    	<% if current_user.friends_with? friend %>
+								<a href="tel:+<%= friend.phone %>">Call</a>
+							<% end %>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</span>
 	</div>
 </ul>
 	<% end %>

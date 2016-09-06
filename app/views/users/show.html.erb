@@ -19,7 +19,7 @@
           <%= form_for @user, url: "/users/#{@user.id}", method: 'delete' do |f| %>
             <div class='right'>
               <div class='waves-effect waves-light btn blue-grey darken-1'>
-                <%= f.submit "Remove Contact" %>
+                <%= f.submit "Remove" %>
               </div>
             </div>
           <% end %>
@@ -27,7 +27,7 @@
           <%= form_for :user, url: "/users/#{@user.id}" do |f| %>
             <div class='center'>
               <div class='waves-effect waves-light btn blue-grey darken-1'>
-                <%= f.submit "Add Contact" %>
+                <%= f.submit "Add" %>
               </div>
             </div>
           <% end %>
