@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    if @user = session[:user_id]
+    if @user = session[:user]
       redirect_to user_path(@user)
     end
     @user = User.new
