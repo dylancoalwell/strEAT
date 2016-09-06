@@ -6,6 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <%= csrf_meta_tags %>
 
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&v=3"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -14,6 +15,6 @@
   <body class='grey lighten-3 blue-grey-text'>
     <%= render '/nav' %>
     <%= yield %>
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&v=3&callback=initMap"></script>
+
   </body>
 </html>
