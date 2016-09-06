@@ -2,6 +2,16 @@ require 'rubygems'
 require 'twilio-ruby'
 
 class UsersController < ApplicationController
+
+  def index
+    if @user = User.find_by(id: session[:user_id])
+      redirect_to user_path(@user)
+    else
+      redirect_to new_session_path
+    end
+  end
+
+
   def search
     if params[:search] != ""
       if @matches = User.find_by(phone: params[:search])
