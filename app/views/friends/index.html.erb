@@ -2,13 +2,17 @@
 <div class='center'>
 	<div class='waves-effect waves-light btn blue-grey lighten-1'>
 	  <i class="material-icons left">search</i>
-	  <%= link_to "find friends", user_new_friend_path %>
+	  <%= link_to "find contacts", user_new_friend_path %>
 	</div>
 </div>
 
 <br>
 <ul class="collection-header with">
-	<li class="collection-header center"><h5><%= @user.first_name %>'s Friends</h5></li>
+	<% if current_user == @user %>
+		<li class="collection-header center"><h5>Contacts</h5></li>
+	<% else %>
+		<li class="collection-header center"><h5><%= @user.first_name %>'s Friends</h5></li>
+	<% end %>
 	<% @user.friends.each do |friend| %>
 	<div class="container col s12 m8 offset-m2 l6 offset-l3">
 		<span>
@@ -26,7 +30,9 @@
 				      </div>
 				    </span><br><br>
 				    <div class='waves-effect waves-light btn blue-grey lighten-1 right center-buttons'>
-							<a href="tel:+<%= friend.phone %>">Call</a>
+				    	<% if current_user.friends_with? friend %>
+								<a href="tel:+<%= friend.phone %>">Call</a>
+							<% end %>
 						</div>
 					</div>
 				</div>
