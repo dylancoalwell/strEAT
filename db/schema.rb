@@ -15,6 +15,13 @@ ActiveRecord::Schema.define(version: 20160905150414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "articles", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "favorite_locations", force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "address",    null: false
