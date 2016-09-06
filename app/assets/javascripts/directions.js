@@ -1,7 +1,9 @@
+
 function handleDirections() {
-          navigator.geolocation.getCurrentPosition(initDirections, geolocationErrorHandler, {
-            enableHighAccuracy: true
-          })
+        var map;
+        navigator.geolocation.getCurrentPosition(initDirections, geolocationErrorHandler, {
+          enableHighAccuracy: true
+        })
       }
 
       function geolocationErrorHandler() {
@@ -29,7 +31,7 @@ function handleDirections() {
           var directionsRenderer = new google.maps.DirectionsRenderer;
 
           // center: {lat: 41.85, lng: -87.65}
-          var map = new google.maps.Map(document.getElementById('map'), {
+          map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
             center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
           });
@@ -57,14 +59,13 @@ function handleDirections() {
           destination:  new google.maps.LatLng(destination.lat, destination.lng),
           travelMode: 'WALKING'
         }, function(response, status) {
-          console.log("directions service route setup good")
+          // console.log("directions service route setup good")
           if (status === 'OK') {
-            console.log("good status")
+            // console.log("good status")
             directionsRenderer.setDirections(response);
 
             var path = response.routes[0].overview_path;
             // bounds = routeBoxer.box(path, distance);
-
             searchPath(path);
 
           } else {
@@ -76,36 +77,34 @@ function handleDirections() {
       function searchPath(path) {
         console.log("search path running")
         for (var i = 0; i < path.length; i++) {
-          console.log("looping i at:", i)
+          // console.log("looping i at:", i)
           (function (i) {
-            console.log("anon func running with i at:", i)
+            // console.log("anon func running with i at:", i)
             setTimeout(function () {
-              console.log("timeout runnning with i at:", i)
+              // console.log("timeout runnning with i at:", i)
               performSearch(path[i]);
-            }, 650 * i);
+            }, 1000 * i);
           }(i));
         }
       }
 
       function performSearch(pathNode) {
+        console.log("performSearch")
         var nearRequest = {
           location: pathNode,
           radius: 100,
           keyword: 'Burgers',
           openNow: true
         };
-
         var service = new google.maps.places.PlacesService(map);
-
         service.nearbySearch(nearRequest, nearCallback)
       }
 
       function nearCallback(results, status) {
-        console.log(status)
+        console.log("in NEARCALLBACK")
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
             var place = results[i];
-            console.log(place)
             createMarker(results[i]);
           }
         }
