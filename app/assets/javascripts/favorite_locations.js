@@ -67,10 +67,12 @@ function saveFavoriteLocation(favTitle, favObj) {
   })
   .done(function(response) {
     console.log("success");
-    console.log($("#returnedAddresses"))
     $("#returnedAddresses").remove();
+    var url = '/users/' + response.user_id + '/favorite_locations'
+    $(location).attr('href', url)
   })
-  .fail(function() {
+  .fail(function(response) {
+    console.log(response)
     console.log("error");
   })
   .always(function() {
