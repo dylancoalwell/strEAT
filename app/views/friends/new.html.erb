@@ -1,5 +1,5 @@
 <ul class="collection-header with">
-  <li class="collection-header center"><h5>search for friends</h5></li></ul>
+  <li class="collection-header center"><h5>Search for Contacts</h5></li></ul>
 
 <div class='container'>
   <%= form_tag(users_search_path, :method => "get") do %>
@@ -7,7 +7,7 @@
     <%= text_field_tag :search, params[:search], placeholder: "find by phone number" %>
   </div>
   <div class='waves-effect waves-light btn blue-grey darken-1'>
-    <%= submit_tag "find friend" %>
+    <%= submit_tag "Find Contact" %>
   </div>
   <% end %>
 </div>
