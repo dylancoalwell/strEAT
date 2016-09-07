@@ -1,4 +1,6 @@
 var savedPlaces = [];
+var currentPosition;
+
 function handleDirections() {
   // var map;
   navigator.geolocation.getCurrentPosition(initDirections, geolocationErrorHandler, {
@@ -13,6 +15,7 @@ function initDirections(position) {
   var url = $(location).attr('href')
   var re = /(\S*)(\/directions)(\S*)/i
   var postUrl = url.replace(re,("$3"))
+  currentPosition = position
 
   console.log("postURL", postUrl)
 
@@ -114,3 +117,5 @@ function createMarker(place) {
     infowindow.open(map, marker);
   });
 }
+
+
