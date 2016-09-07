@@ -1,20 +1,18 @@
-$(function () {
+function loadFavorites() {
   var geocoder = new google.maps.Geocoder();
-
   $("#submitAddress").on("click", function() {
     $("#returnedAddresses").remove();
     handleCreatingFavoriteAddress(geocoder);
   }) // end of submit button handler
 
 
-}); // end of document ready
+}; // end of loadFavorites
 
 
 function handleCreatingFavoriteAddress(geocoder) {
   // # make this a part a view function?
   var address = document.getElementById('address').value;
 
-  // # It's own function that is solely responsible to hitting google for addresses
   geocoder.geocode({'address': address}, function(results, status) {
     // # maybe see if this can be moved to a call back?
     var confirmation;
@@ -29,10 +27,7 @@ function handleCreatingFavoriteAddress(geocoder) {
 
 }
 
-// is called by handleCreatingFavoriteAddress
-// This function dynamically appends a div to the address-search panel.
-// It will loop through all the results sent by the geocode lookup
-// Each item will appear as an option
+
 function displayReturnedAddress(results) {
   // append select to returnedAddresses div
   $("#address-search-panel").append('<div id="returnedAddresses"></div>')
@@ -54,12 +49,6 @@ function displayReturnedAddress(results) {
 }
 
 
-//find
-
-
-// called by displayReturnedAddress
-// This function will allow the user to assign a name to the location
-// and save address to the users favorite locations
 function saveFavoriteLocation(favTitle, favObj) {
   var url = $(location).attr("href")
   console.log(url)
@@ -82,10 +71,13 @@ function saveFavoriteLocation(favTitle, favObj) {
   .done(function(response) {
     // debugger;
     $("#returnedAddresses").remove();
-     var url = $(location).attr("href")
+     // var url = $(location).attr("href")
+     console.log("in done")
+     console.log(response)
+     console.log("leaving done")
+     $(location).attr("href",response)
+    // $(location).attr("href",postUrl)
 
-    $(location).attr("href",postUrl)
-    // $("#returnedAddresses").append('<div class="return-link"> ' + result.formatted_address + '</div>')
 
   })
   .fail(function(response) {
@@ -97,9 +89,6 @@ function saveFavoriteLocation(favTitle, favObj) {
   });
 
   $("#returnedAddresses").remove();
-  // var saveLocationData =
-  // '<div id="saveLocation"><form action="/user/1/favorite_locations" method="post"><label for="name">Name for location</label><input type="text" name="name" placeholder="name"><br><input type="hidden" name="address"><br><input type="hidden" value="Add Location"></form></div>';
-  // $("#favorite-location").append(saveLocationData);
 
 }
 

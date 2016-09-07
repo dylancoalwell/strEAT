@@ -27,9 +27,6 @@ function initDirections(position) {
     url: finalUrl
   }).done(function (res) {
 
-    console.log("responding...")
-    console.log(res)
-
     var directionsService = new google.maps.DirectionsService;
     var directionsRenderer = new google.maps.DirectionsRenderer;
 
@@ -39,12 +36,9 @@ function initDirections(position) {
       center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
     });
 
-    console.log("new map variable/object set")
-
     directionsRenderer.setMap(map);
 
     // service = new google.maps.places.PlacesService(map);
-    console.log("service set")
 
     calculateAndDisplayRoute(directionsService, directionsRenderer, position, res)
 
@@ -52,19 +46,14 @@ function initDirections(position) {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
-  // console.log("calculateAndDisplayRoute")
-  // var routeBoxer = new RouteBoxer();
-
-  // var distance = 0.001; // km
 
   directionsService.route({
     origin: new google.maps.LatLng(origin.coords.latitude, origin.coords.longitude),
     destination:  new google.maps.LatLng(destination.lat, destination.lng),
     travelMode: 'WALKING'
   }, function(response, status) {
-    // console.log("directions service route setup good")
+
     if (status === 'OK') {
-      // console.log("good status")
       directionsRenderer.setDirections(response);
 
       var path = response.routes[0].overview_path;
@@ -78,7 +67,6 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer, origin,
 }
 
 function searchPath(path) {
-  console.log("search path running")
   for (var i = 0; i < path.length; i++) {
     // console.log("looping i at:", i)
     (function (i) {
@@ -92,7 +80,6 @@ function searchPath(path) {
 }
 
 function performSearch(pathNode) {
-  console.log("performSearch")
   var nearRequest = {
     location: pathNode,
     radius: 100,
@@ -105,14 +92,14 @@ function performSearch(pathNode) {
 }
 
 function nearCallback(results, status) {
-  console.log("in NEARCALLBACK")
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       savedPlaces.push(results[i])
       createMarker(results[i]);
     }
+  } else {
+    console.log(status)
   }
-  console.log(status)
 }
 
 function createMarker(place) {
