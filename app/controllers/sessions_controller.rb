@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
-    if logged_in?
-      redirect_to root_path
+    if @user = session[:user]
+      redirect_to user_path(@user)
     end
     @user = User.new
   end
