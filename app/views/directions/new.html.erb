@@ -1,12 +1,18 @@
-    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDq60WcziFdwMLmN56SCpsan8OQMKEqWn4&v=3&callback=handleDirections">
-    </script>
+<style type="text/css">
+  #map {
+    width: 600px;
+    height: 600px;
+  }
+</style>
 
-    <style type="text/css">
-      #map {
-        width: 600px;
-        height: 600px;
-      }
-    </style>
+<div id="map"></div>
 
-    <div id="map"></div>
+<script type="text/javascript">
+handleDirections()
+</script>
 
+<div class="fixed-action-btn" style="bottom: 45px; right: 50px;">
+  <a id='list-button' class="btn-floating btn-large waves-effect waves-light btn blue-grey darken-1">
+    <i class="material-icons">list</i>
+  </a>
+</div>
