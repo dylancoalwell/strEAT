@@ -8487,11 +8487,11 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 }
 
 #map2 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100% !important;
-      height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 html {

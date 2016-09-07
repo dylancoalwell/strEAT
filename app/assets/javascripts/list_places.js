@@ -1,21 +1,19 @@
-// function evenMoreNearCallback(results, status) {
-//   if (status == google.maps.places.PlacesServiceStatus.OK) {
-//     for (var i = 0; i < results.length; i++) {
-//       var place = results[i];
-//       // debugger;
-//       createMarker(results[i]);
-//     }
-//   }
-//   console.log(status)
-// }
 
-// var map = new google.maps.Map(document.getElementById('map'), {
-//       zoom: 10,
-//       center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+function removeDuplicatesFromList(list) {
+  for ( var i = 0; i < list.length; i++ ) {
+    for ( var j = 0; j < list.length; j++ ) {
+      if(list[i].place_id == list[j].place_id) {
+        list.splice(j, 1);
+      }
+    }
+  }
+  return list;
+}
 
-function showList() {
+function showList(list) {
   $('#list-button').on('click', function(e) {
+    var newList = removeDuplicatesFromList(list);
     e.preventDefault();
-    console.log(savedPlaces[0].name);
+    console.log(newList.length);
   });
 };
