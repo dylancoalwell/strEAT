@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       else
         user = User.new(phone: params[:search])
         message_text = "I have invited you to join strEAT. Click here to register and join the fun! http://streat.herokuapp.com/users/new"
-        use_twilio(user, message_text)
+        use_twilio(user, message_text, nil)
         redirect_to user_path(current_user)
       end
     else
@@ -82,20 +82,26 @@ class UsersController < ApplicationController
 
   def message
     guest = User.find(params[:id])
-    message_text = params[:invite][:message]
-    invitation = Invitation.new(sender_id: current_user.id, guest_id: guest.id, message: params[:message], sender_lat: params[:sender_lat], sender_lng: params[:sender_lng])
-    if invitation.save
+    if request.xhr?
+      message_text = params[:message]
+    else
+      message_text = params[:invite][:message]
+    end
+    invitation = Invitation.new(sender_id: current_user.id, guest_id: guest.id, message: message_text, sender_lat: params[:sender_lat], sender_lng: params[:sender_lng])
+    if invitation && invitation.save
       puts "success"
       if message_text != ""
         use_twilio(guest, message_text, invitation.id)
-        redirect_to user_friends_path(current_user)
+        if request.xhr?
+          redirect_to user_path(current_user)
+        else
+          redirect_to user_friends_path(current_user)
+        end
       else
         redirect_to user_path(guest)
       end
     else
-      p "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
       puts "failure"
-      p "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     end
   end
 
@@ -124,11 +130,18 @@ class UsersController < ApplicationController
       config.account_sid = account_sid
       config.auth_token = auth_token
     end
+
+    if invitation_id == nil
+      body_message = "#{current_user.first_name} #{current_user.last_name} says: #{message_text}"
+    else
+      body_message = "#{current_user.first_name} #{current_user.last_name} has sent you an invitation: www.streat.herokuapp.com/invitations/" + invitation_id.to_s
+    end
+    puts body_message
     @client = Twilio::REST::Client.new
     @client.messages.create(
       from: '+12013801772  ',
       to: user.phone,
-      body: "#{current_user.first_name} #{current_user.last_name} has sent you an invitation: www.streat.herokuapp.com/invitations/#{invitation_id}"
+      body: body_message
     )
   end
 end

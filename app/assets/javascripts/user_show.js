@@ -11,7 +11,7 @@ $(function () {
 function handleRouteToFriend(event, form, position) {
   message = form.find("#invite_message").val()
   $.ajax({
-    url:'/invitations',
+    url: form.attr('action'),
     method: 'POST',
     data: {
         message: message,
