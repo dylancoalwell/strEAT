@@ -3,11 +3,12 @@ class FavoriteLocationsController < ApplicationController
     if !logged_in?
       redirect_to root_path
     end
+    @user = User.find(params[:user_id])
   end
 
   def new
     redirect_to root_path unless logged_in?
-    @user = User.find(params[:user_id])
+    @user = User.find_by_id(params[:id])
   end
 
   def create
@@ -36,11 +37,7 @@ class FavoriteLocationsController < ApplicationController
       if request.xhr?
         render :nothing => true, status: 403
       end
-      if @favorite_location = @user.favorite_locations.create(favorite_location_params)
-      else
-        @errors = @favorite_location.errors.full_messages
-      end
-    else
+    # else
     end
   end
 

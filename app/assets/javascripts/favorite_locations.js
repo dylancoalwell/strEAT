@@ -1,9 +1,14 @@
-// This function allows a user to input an address and
-// will be looked up in Google Maps
-// called by google-maps.js
-function setFavoriteLocation() {
-  console.log('click:')
-}
+$(function () {
+  var geocoder = new google.maps.Geocoder();
+
+  $("#submitAddress").on("click", function() {
+    $("#returnedAddresses").remove();
+    handleCreatingFavoriteAddress(geocoder);
+  }) // end of submit button handler
+
+
+}); // end of document ready
+
 
 function handleCreatingFavoriteAddress(geocoder) {
   // # make this a part a view function?
@@ -39,12 +44,10 @@ function displayReturnedAddress(results) {
   $(".address").on('click',  function() {
     var name = $("#favorite-name").val();
     addressID = $(this).attr("id").split("-")[1];
-    console.log(addressID)
     if (name.trim() != "") {
       saveFavoriteLocation(name, results[addressID]);
     } else {
-      console.log($("#favorite-name"))
-      $("#favorite-name").val("Please enter a name");
+      $("#favorite-name").attr("placeholder","Please enter a name");
       $("#favorite-name").addClass("error");
     }
   }) // end of click handler
@@ -78,15 +81,14 @@ function saveFavoriteLocation(favTitle, favObj) {
   })
   .done(function(response) {
     // debugger;
-    console.log("success");
     $("#returnedAddresses").remove();
      var url = $(location).attr("href")
-  console.log(response.responseText)
+
+    $(location).attr("href",postUrl)
     // $("#returnedAddresses").append('<div class="return-link"> ' + result.formatted_address + '</div>')
 
   })
   .fail(function(response) {
-    console.log("in fail")
     console.log(response);
   })
   .always(function() {
