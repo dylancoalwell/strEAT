@@ -66,7 +66,7 @@
     <h4 class='container center-align'>Invite</h4><br>
     <div class='container'>
 
-      <%= form_for :invite, url: "/users/#{@user.id}/message" do |f| %>
+      <%= form_for :invite, url: "/users/#{@user.id}/message", :html => {:id => 'contact-location-request'} do |f| %>
       <div class='input-field'>
         <%= f.label :message, "message" %>
         <%= f.text_field :message %>

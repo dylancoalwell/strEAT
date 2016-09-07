@@ -120,7 +120,7 @@ class UsersController < ApplicationController
     @client.messages.create(
       from: '+12013801772  ',
       to: user.phone,
-      body: "#{current_user.first_name} says: #{message_text} Click here for invitation !!!! LINK GOES HERE!!!!!"
+      body: "#{current_user.first_name} says: #{message_text} Click here for invitation !!!! LINK GOES HERE!!!!! www.google.com"
     )
   end
 end

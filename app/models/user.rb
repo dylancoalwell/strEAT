@@ -1,6 +1,8 @@
 
 class User < ApplicationRecord
   has_many :favorite_locations
+  has_many :invitations, foreign_key: :sender_id
+  has_many :guest_invitations, class_name: :Invitation, foreign_key: :guest_id
   has_secure_password
   popular
 
