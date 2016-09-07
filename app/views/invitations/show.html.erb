@@ -1,0 +1,12 @@
+<div>
+  <h4><%= @invitation.sender.first_name %> <%= @invitation.sender.last_name %></h4>
+  <div>
+    <p>has invited to meet you for a meal. <%= @invitation.message %></p>
+  </div>
+  <div>
+    <%= form_for delete_invitation_path(@invitation), method: 'delete' do |f| %>
+      <%= f.submit 'decline' %>
+    <% end %>
+    <%= link_to "accept" %>
+  </div>
+</div>
