@@ -20,6 +20,7 @@ function showList(list) {
 
 function placeList(list) {
   $('#map').slideUp(1000);
+  $('#list-icon').text('directions');
   list.forEach(function(singleItem) {
     var price = parseInt(singleItem.price_level)
     var attachMoney = "attach_money"
@@ -27,7 +28,7 @@ function placeList(list) {
     var coolHtml = "<i class='material-icons'>"+moneySignsBaby+"</i>"
     var address = encodeURIComponent(singleItem.vicinity)
     var mapsUrl = "http://maps.google.com/maps?dirflg=w&saddr="+currentPosition.coords.latitude+","+currentPosition.coords.longitude+"&daddr="+address+"&dirflg=w"
-    var listHtml = "<li class='card-title'><a href="+mapsUrl+">"+singleItem.name+"</a></li><li>"+singleItem.vicinity+"</li><br><li>"+coolHtml+"</li>"
+    var listHtml = "<li class='card-title'><a href="+mapsUrl+">"+singleItem.name+"</a></li><li>"+singleItem.vicinity+"</li><li>"+coolHtml+"</li><br>"
     $('#restaurant-list').append(listHtml);
   });
 };
