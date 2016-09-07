@@ -14,9 +14,9 @@ function handleRouteToFriend(event, form, position) {
     url:'/invitations',
     method: 'POST',
     data: {
-      message: message,
-      sender_lat: position.coords.latitude,
-      sender_lng: position.coords.longitude
+        message: message,
+        sender_lat: position.coords.latitude,
+        sender_lng: position.coords.longitude
     }
   }).done(function (response) {
     console.log(response)

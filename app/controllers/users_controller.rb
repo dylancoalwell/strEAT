@@ -81,13 +81,21 @@ class UsersController < ApplicationController
 
 
   def message
-    user = User.find(params[:id])
+    guest = User.find(params[:id])
     message_text = params[:invite][:message]
-    if message_text != ""
-      use_twilio(user, message_text)
-      redirect_to user_friends_path(current_user)
+    invitation = Invitation.new(sender_id: current_user.id, guest_id: guest.id, message: params[:message], sender_lat: params[:sender_lat], sender_lng: params[:sender_lng])
+    if invitation.save
+      puts "success"
+      if message_text != ""
+        use_twilio(guest, message_text, invitation.id)
+        redirect_to user_friends_path(current_user)
+      else
+        redirect_to user_path(guest)
+      end
     else
-      redirect_to user_path(user)
+      p "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+      puts "failure"
+      p "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     end
   end
 
@@ -108,7 +116,7 @@ class UsersController < ApplicationController
 
 
 
-  def use_twilio(user, message_text)
+  def use_twilio(user, message_text, invitation_id)
     account_sid = ENV['TWILIO_ACCT_SID']
     auth_token = ENV['TWILIO_AUTH_KEY']
     @client = Twilio::REST::Client.new account_sid, auth_token
@@ -120,7 +128,7 @@ class UsersController < ApplicationController
     @client.messages.create(
       from: '+12013801772  ',
       to: user.phone,
-      body: "#{current_user.first_name} says: #{message_text} Click here for invitation !!!! LINK GOES HERE!!!!! www.google.com"
+      body: "#{current_user.first_name} #{current_user.last_name} has sent you an invitation: www.streat.herokuapp.com/invitations/#{invitation_id}"
     )
   end
 end

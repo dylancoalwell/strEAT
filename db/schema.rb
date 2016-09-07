@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907151146) do
+ActiveRecord::Schema.define(version: 20160907182520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,15 +37,16 @@ ActiveRecord::Schema.define(version: 20160907151146) do
   end
 
   create_table "invitations", force: :cascade do |t|
-    t.float    "sender_lat", null: false
-    t.float    "sender_lng", null: false
+    t.float    "sender_lat",                 null: false
+    t.float    "sender_lng",                 null: false
     t.float    "guest_lat"
     t.float    "guest_lng"
-    t.integer  "sender_id",  null: false
+    t.integer  "sender_id",                  null: false
     t.integer  "guest_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.text     "message"
+    t.boolean  "active",     default: false
   end
 
   create_table "sessions", force: :cascade do |t|
