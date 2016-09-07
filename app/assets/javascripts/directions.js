@@ -14,18 +14,15 @@ function handleDirections() {
         var re = /(\S*)(\/directions)(\S*)/i
         var postUrl = url.replace(re,("$3"))
 
-        console.log("postURL", postUrl)
 
         var finalUrl =  '/favorite_locations' +  postUrl
 
-        console.log(finalUrl)
 
         $.ajax({
           url: finalUrl
         }).done(function (res) {
 
-          console.log("responding...")
-          console.log(res)
+
 
           var directionsService = new google.maps.DirectionsService;
           var directionsRenderer = new google.maps.DirectionsRenderer;
@@ -36,12 +33,10 @@ function handleDirections() {
             center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
           });
 
-          console.log("new map variable/object set")
 
           directionsRenderer.setMap(map);
 
           // service = new google.maps.places.PlacesService(map);
-          console.log("service set")
 
           calculateAndDisplayRoute(directionsService, directionsRenderer, position, res)
 
@@ -59,7 +54,6 @@ function handleDirections() {
           destination:  new google.maps.LatLng(destination.lat, destination.lng),
           travelMode: 'WALKING'
         }, function(response, status) {
-          // console.log("directions service route setup good")
           if (status === 'OK') {
             // console.log("good status")
             directionsRenderer.setDirections(response);
@@ -75,7 +69,6 @@ function handleDirections() {
       }
 
       function searchPath(path) {
-        console.log("search path running")
         for (var i = 0; i < path.length; i++) {
           // console.log("looping i at:", i)
           (function (i) {
@@ -89,7 +82,6 @@ function handleDirections() {
       }
 
       function performSearch(pathNode) {
-        console.log("performSearch")
         var nearRequest = {
           location: pathNode,
           radius: 100,
@@ -102,7 +94,6 @@ function handleDirections() {
       }
 
       function nearCallback(results, status) {
-        console.log("in NEARCALLBACK")
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           for (var i = 0; i < results.length; i++) {
             var place = results[i];

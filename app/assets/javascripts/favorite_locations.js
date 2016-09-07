@@ -1,9 +1,14 @@
-// This function allows a user to input an address and
-// will be looked up in Google Maps
-// called by google-maps.js
-function setFavoriteLocation() {
-  console.log('click:')
-}
+$(function () {
+  var geocoder = new google.maps.Geocoder();
+
+  $("#submitAddress").on("click", function() {
+    $("#returnedAddresses").remove();
+    handleCreatingFavoriteAddress(geocoder);
+  }) // end of submit button handler
+
+
+}); // end of document ready
+
 
 function handleCreatingFavoriteAddress(geocoder) {
   // # make this a part a view function?
@@ -37,12 +42,14 @@ function displayReturnedAddress(results) {
     $("#returnedAddresses").append('<div class="address" id="address-' + index + '">' + result.formatted_address + '</div>')
   }) // end of each block
   $(".address").on('click',  function() {
-    var name = $("#favorite-name").val()
-    console.log(name)
-    console.log("target  ", event.target)
-    addressID = $(this).attr("id").split("-")[1]
-    console.log(addressID)
-    saveFavoriteLocation(name, results[addressID])
+    var name = $("#favorite-name").val();
+    addressID = $(this).attr("id").split("-")[1];
+    if (name.trim() != "") {
+      saveFavoriteLocation(name, results[addressID]);
+    } else {
+      $("#favorite-name").attr("placeholder","Please enter a name");
+      $("#favorite-name").addClass("error");
+    }
   }) // end of click handler
 }
 
@@ -72,14 +79,21 @@ function saveFavoriteLocation(favTitle, favObj) {
       }
     }
   })
-  .done(function() {
-    console.log("success");
+  .done(function(response) {
+    // debugger;
+    $("#returnedAddresses").remove();
+     var url = $(location).attr("href")
+
+    $(location).attr("href",postUrl)
+    // $("#returnedAddresses").append('<div class="return-link"> ' + result.formatted_address + '</div>')
+
   })
-  .fail(function() {
-    console.log("error");
+  .fail(function(response) {
+    console.log(response);
   })
   .always(function() {
-    console.log("complete");
+    console.log("in always")
+    // console.log("complete");
   });
 
   $("#returnedAddresses").remove();
@@ -89,19 +103,3 @@ function saveFavoriteLocation(favTitle, favObj) {
 
 }
 
-// '<div id="form">
-//   <form action="/user/1/favorite_locations" method="post">
-//     <label for="name">Name for location</label>
-//     <input type="text" name="name" placeholder="name"><br>
-//     <input type="hidden" name="address"><br>
-//     <input type="hidden" value="Add Location">
-//   </form>
-// </div>
-// '
-
-
-// name
-// address
-// lat
-// lng
-// user_id
