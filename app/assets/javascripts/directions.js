@@ -49,17 +49,13 @@ function initDirections(position) {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsRenderer, origin, destination) {
-  // console.log("calculateAndDisplayRoute")
-  // var routeBoxer = new RouteBoxer();
-
-  // var distance = 0.001; // km
 
   directionsService.route({
     origin: new google.maps.LatLng(origin.coords.latitude, origin.coords.longitude),
     destination:  new google.maps.LatLng(destination.lat, destination.lng),
     travelMode: 'WALKING'
   }, function(response, status) {
-    // console.log("directions service route setup good")
+
     if (status === 'OK') {
       // console.log("good status")
       directionsRenderer.setDirections(response);
