@@ -18,8 +18,10 @@ class FavoriteLocationsController < ApplicationController
       @favorite_location = @user.favorite_locations.new(favorite_location_params)
       if @favorite_location.save
           if request.xhr?
+            message = "/directions/#{@favorite_location.id.to_s}"
+            render :json => message.to_json
 
-           render :nothing => true, status: 200
+           # render :nothing => true, status: 200
         # redirect to favorites location
           end
       else
