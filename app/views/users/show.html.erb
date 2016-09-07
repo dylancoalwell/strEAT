@@ -3,7 +3,7 @@
   <div class='row>'>
     <div class='card horizontal red darken-4 valign-wrapper'>
       <div class='card-image valign'>
-        <img class='responsive-img' src='<%= @user.avatar.url(:medium) %>'>
+        <img id='profile-picture' class='responsive-img' src='<%= @user.avatar.url(:medium) %>'>
       </div>
       <div class='card-content white-text'>
         <h5><%= @user.first_name %> <%= @user.last_name %></h5><br>
