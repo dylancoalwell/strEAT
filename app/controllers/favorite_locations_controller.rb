@@ -51,6 +51,10 @@ class FavoriteLocationsController < ApplicationController
     end
   end
 
+  def destroy
+    @favorite = FavoriteLocation.find(params[:id])
+  end
+
   private
 
   def favorite_location_params

@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905150414) do
+ActiveRecord::Schema.define(version: 20160907143329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "articles", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "favorite_locations", force: :cascade do |t|
     t.string   "name",       null: false
@@ -41,6 +34,17 @@ ActiveRecord::Schema.define(version: 20160905150414) do
     t.datetime "updated_at"
     t.index ["friend_id", "friend_type"], name: "index_friendships_on_friend_id_and_friend_type", using: :btree
     t.index ["popular_model_id", "popular_model_type"], name: "index_friendships_on_popular_model_id_and_popular_model_type", using: :btree
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.float    "sender_lat", null: false
+    t.float    "sender_lng", null: false
+    t.float    "guest_lat"
+    t.float    "guest_lng"
+    t.integer  "sender_id",  null: false
+    t.integer  "guest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|
