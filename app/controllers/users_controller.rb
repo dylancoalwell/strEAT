@@ -18,7 +18,7 @@ class UsersController < ApplicationController
         @matches
       else
         user = User.new(phone: params[:search])
-        message_text = "I have invited you to join strEAT. Click here to register and join the fun! http://streat.herokuapp.com/users/new"
+        message_text = "I have invited you to join strEAT. Click here to register and join the fun! https://streat.herokuapp.com/users/new"
         use_twilio(user, message_text, nil)
         redirect_to user_path(current_user)
       end

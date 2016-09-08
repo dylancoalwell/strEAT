@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
     if invitation_id == nil
       body_message = "#{current_user.first_name} #{current_user.last_name} says: #{message_text}"
     else
-      body_message = "#{current_user.first_name} #{current_user.last_name} has sent you an invitation: http://streat.herokuapp.com/invitations/" + invitation_id.to_s
+      body_message = "#{current_user.first_name} #{current_user.last_name} has sent you an invitation: https://streat.herokuapp.com/invitations/" + invitation_id.to_s
     end
     puts body_message
     @client = Twilio::REST::Client.new

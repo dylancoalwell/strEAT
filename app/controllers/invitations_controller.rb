@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
         # twillio call goes here
         sender = User.find(@invitation.sender_id)
         guest = User.find(@invitation.guest_id)
-        message_text = "Your Invitation to #{guest.first_name} #{guest.last_name} has been accepted. Here is your route http://streat.herokuapp.com/invitations/#{@invitation.id}/route"
+        message_text = "Your Invitation to #{guest.first_name} #{guest.last_name} has been accepted. Here is your route https://streat.herokuapp.com/invitations/#{@invitation.id}/route"
         use_twilio(sender, message_text, nil)
         redirect_to invitation_route_path(@invitation)
       else
