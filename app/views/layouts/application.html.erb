@@ -8,7 +8,8 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-     <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDlkOiMbytGMGF5H3f6cXxIgHVSVvEu0Aw">
+
+     <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=<%= ENV['GOOGLE_API_KEY'] %>">
      </script>
   </head>
 
