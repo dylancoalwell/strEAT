@@ -8501,3 +8501,8 @@ html {
 #profile-picture {
   margin: 5%;
 }
+
+#logo-id-woo {
+  max-width: 100%;
+  height: auto;
+}
