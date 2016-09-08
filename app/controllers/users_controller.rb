@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       else
         user = User.new(phone: params[:search])
         message_text = "I have invited you to join strEAT. Click here to register and join the fun! http://streat.herokuapp.com/users/new"
-        use_twilio(user, message_text)
+        use_twilio(user, message_text, nil)
         redirect_to user_path(current_user)
       end
     else
@@ -81,13 +81,27 @@ class UsersController < ApplicationController
 
 
   def message
-    user = User.find(params[:id])
-    message_text = params[:invite][:message]
-    if message_text != ""
-      use_twilio(user, message_text)
-      redirect_to user_friends_path(current_user)
+    guest = User.find(params[:id])
+    if request.xhr?
+      message_text = params[:message]
     else
-      redirect_to user_path(user)
+      message_text = params[:invite][:message]
+    end
+    invitation = Invitation.new(sender_id: current_user.id, guest_id: guest.id, message: message_text, sender_lat: params[:sender_lat], sender_lng: params[:sender_lng])
+    if invitation && invitation.save
+      puts "success"
+      if message_text != ""
+        use_twilio(guest, message_text, invitation.id)
+        if request.xhr?
+          redirect_to user_path(current_user)
+        else
+          redirect_to user_friends_path(current_user)
+        end
+      else
+        redirect_to user_path(guest)
+      end
+    else
+      puts "failure"
     end
   end
 
@@ -108,19 +122,5 @@ class UsersController < ApplicationController
 
 
 
-  def use_twilio(user, message_text)
-    account_sid = ENV['TWILIO_ACCT_SID']
-    auth_token = ENV['TWILIO_AUTH_KEY']
-    @client = Twilio::REST::Client.new account_sid, auth_token
-    Twilio.configure do |config|
-      config.account_sid = account_sid
-      config.auth_token = auth_token
-    end
-    @client = Twilio::REST::Client.new
-    @client.messages.create(
-      from: '+12013801772  ',
-      to: user.phone,
-      body: "#{current_user.first_name} says: #{message_text}"
-    )
-  end
+
 end
