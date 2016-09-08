@@ -39,6 +39,7 @@ gem 'figaro'
 gem "paperclip", "~> 5.0.0"
 gem 'simple_form'
 gem 'figaro'
+gem 'aws-sdk', '~> 2.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
