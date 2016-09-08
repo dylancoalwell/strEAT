@@ -31,7 +31,7 @@ function handleCreatingFavoriteAddress(geocoder) {
 function displayReturnedAddress(results) {
   // append select to returnedAddresses div
   $("#address-search-panel").append('<div id="returnedAddresses"></div>')
-  $("#returnedAddresses").append('<label>Enter name of location<input id="favorite-name" type="textbox" VALUE=""></label>')
+  $("#returnedAddresses").append('<label>Enter name of location<input id="favorite-name" type="textbox" VALUE=""></label><br>')
   $("#returnedAddresses").append('<p>Select favorite location from below</p>')
   $.each(results, function(index, result) {
     $("#returnedAddresses").append('<div class="address" id="address-' + index + '">' + result.formatted_address + '</div>')
