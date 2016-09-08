@@ -7,8 +7,11 @@ class FavoriteLocationsController < ApplicationController
   end
 
   def new
-    redirect_to root_path unless logged_in?
-    @user = User.find_by_id(params[:id])
+    if logged_in? && (@user == current_user)
+      @user = User.find_by_id(params[:id])
+    else
+      redirect_to root_path
+    end
   end
 
   def create
