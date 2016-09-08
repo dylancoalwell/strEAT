@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
         # twillio call goes here
         sender = User.find(@invitation.sender_id)
         guest = User.find(@invitation.guest_id)
-        message_text = "Your Invitation from #{guest.first_name} #{guest.last_name} has been accepted. Here is your route http://streat.herokuapp.com/invitations/#{@invitation.id}/route"
+        message_text = "Your Invitation to #{guest.first_name} #{guest.last_name} has been accepted. Here is your route http://streat.herokuapp.com/invitations/#{@invitation.id}/route"
         use_twilio(sender, message_text, nil)
         redirect_to invitation_route_path(@invitation)
       else
@@ -30,9 +30,33 @@ class InvitationsController < ApplicationController
   end
 
   def route
+    route_data = {}
     @invitation = Invitation.find(params[:id])
     if request.xhr?
-      puts "testing things out but hey things are working, maybe?"
+      if current_user.id == @invitation.sender_id
+        route_data = {
+          origin: {
+            lat: @invitation.sender_lat,
+            lng: @invitation.sender_lng
+          },
+          destination: {
+            lat: @invitation.guest_lat,
+            lng: @invitation.guest_lng
+          }
+        }
+      else
+        route_data = {
+          destination: {
+            lat: @invitation.sender_lat,
+            lng: @invitation.sender_lng
+          },
+          origin: {
+            lat: @invitation.guest_lat,
+            lng: @invitation.guest_lng
+          }
+        }
+      end
+      render :json => route_data
     else
       puts "one more time for the kids in the back"
     end
