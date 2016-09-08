@@ -1,14 +1,14 @@
 function handleFriendRouteGeneration() {
   // console.log($(location).attr('href'))
-
+  var directionsService = new google.maps.DirectionsService;
+  var directionsRenderer = new google.maps.DirectionsRenderer;
   var routeDataRequest = $.ajax({
     url: $(location).attr('href')
   })
 
   routeDataRequest.done(function (response) {
     console.log(response)
-    var directionsService = new google.maps.DirectionsService;
-    var directionsRenderer = new google.maps.DirectionsRenderer;
+
 
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
