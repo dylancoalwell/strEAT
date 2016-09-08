@@ -1,21 +1,43 @@
-// function evenMoreNearCallback(results, status) {
-//   if (status == google.maps.places.PlacesServiceStatus.OK) {
-//     for (var i = 0; i < results.length; i++) {
-//       var place = results[i];
-//       // debugger;
-//       createMarker(results[i]);
-//     }
-//   }
-//   console.log(status)
-// }
 
-// var map = new google.maps.Map(document.getElementById('map'), {
-//       zoom: 10,
-//       center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+function removeDuplicatesFromList(list) {
+  for ( var i = 0; i < list.length; i++ ) {
+    for ( var j = 0; j < list.length; j++ ) {
+      if(list[i].place_id == list[j].place_id) {
+        list.splice(j, 1);
+      }
+    }
+  }
+  return list;
+}
 
-function showList() {
+function showList(list) {
   $('#list-button').on('click', function(e) {
+    var newList = removeDuplicatesFromList(list);
     e.preventDefault();
-    console.log(savedPlaces[0].name);
+    placeList(newList);
   });
 };
+
+function placeList(list) {
+  $('#map').slideToggle(1000, function(){
+    if($('#list-icon').text() == 'list') {
+      $('#list-icon').text('directions');
+      list.forEach(function(singleItem) {
+        appendListHtml(singleItem);
+      });
+    }else{
+      $('#list-icon').text('list');
+    };
+  });
+};
+
+function appendListHtml(item) {
+  var price = parseInt(item.price_level)
+  var attachMoney = "attach_money"
+  var moneySignsBaby = attachMoney.repeat(price)
+  var coolHtml = "<i class='material-icons'>"+moneySignsBaby+"</i>"
+  var address = encodeURIComponent(item.vicinity)
+  var mapsUrl = "http://maps.google.com/maps?dirflg=w&saddr="+currentPosition.coords.latitude+","+currentPosition.coords.longitude+"&daddr="+address+"&dirflg=w"
+  var listHtml = "<li class='card-title'><a href="+mapsUrl+">"+item.name+"</a></li><li>"+item.vicinity+"</li><li>"+coolHtml+"</li><br>"
+  $('#restaurant-list').append(listHtml);
+}
