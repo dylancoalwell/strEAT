@@ -3,7 +3,7 @@
   <div class='row>'>
     <div class='card horizontal red darken-4 valign-wrapper'>
       <div class='card-image valign'>
-        <img id='profile-picture' class='responsive-img' src='<%= @user.avatar.url(:square) %>'>
+        <img id='profile-picture' class='responsive-img' src='<%= @user.avatar.url(:medium) %>'>
       </div>
       <div class='card-content white-text'>
         <h5><%= @user.first_name %> <%= @user.last_name %></h5><br>
@@ -12,7 +12,7 @@
         <% if current_user == @user %>
           <div class='center'>
             <div class='waves-effect waves-light btn blue-grey darken-1'>
-              <%= link_to "Edit Account", edit_user_path %>
+              <%= button_to "Edit Account", edit_user_path, :method=> "get" %>
             </div>
           </div>
         <% elsif current_user.friends_with? @user %>
