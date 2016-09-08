@@ -23,11 +23,9 @@ Rails.application.routes.draw do
   post '/invitations' => 'invitations#create', :as => 'create_invitation'
   get '/invitations/:id' => 'invitations#show', :as => 'show_accept'
   delete '/invitations/:id' => 'invitations#destroy', :as => 'delete_invitation'
-  post '/invitations/:id/accept' => 'invitations#accept', :as => 'accept_invitation'
+  post '/invitations/:id' => 'invitations#accept', :as => 'accept_invitation'
 
-
-
-
+  get '/invitations/:id/route' => 'invitations#route', :as => 'invitation_route'
 
   resources :users do
     get 'favorite_locations' => 'favorite_locations#index', :as => 'favorites'

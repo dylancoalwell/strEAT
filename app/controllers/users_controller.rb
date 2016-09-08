@@ -122,26 +122,5 @@ class UsersController < ApplicationController
 
 
 
-  def use_twilio(user, message_text, invitation_id)
-    account_sid = ENV['TWILIO_ACCT_SID']
-    auth_token = ENV['TWILIO_AUTH_KEY']
-    @client = Twilio::REST::Client.new account_sid, auth_token
-    Twilio.configure do |config|
-      config.account_sid = account_sid
-      config.auth_token = auth_token
-    end
 
-    if invitation_id == nil
-      body_message = "#{current_user.first_name} #{current_user.last_name} says: #{message_text}"
-    else
-      body_message = "#{current_user.first_name} #{current_user.last_name} has sent you an invitation: www.streat.herokuapp.com/invitations/" + invitation_id.to_s + "/accept"
-    end
-    puts body_message
-    @client = Twilio::REST::Client.new
-    @client.messages.create(
-      from: '+12013801772  ',
-      to: user.phone,
-      body: body_message
-    )
-  end
 end

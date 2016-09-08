@@ -7,6 +7,12 @@
     <%= form_for delete_invitation_path(@invitation), method: 'delete' do |f| %>
       <%= f.submit 'decline' %>
     <% end %>
-    <%= link_to "accept" %>
+    <%= form_for accept_invitation_path(@invitation), method: 'post', :html => {:id => 'invitation-acceptance-post'} do |f| %>
+    <%= f.submit 'accept' %>
+    <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  invitationsShowViewController()
+</script>
