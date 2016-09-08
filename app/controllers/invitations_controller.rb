@@ -1,6 +1,10 @@
 class InvitationsController < ApplicationController
   def show
-    @invitation = Invitation.find(params[:id])
+    if logged_in?
+      @invitation = Invitation.find(params[:id])
+    else
+      redirect_to new_session_path
+    end
   end
 
   def accept
