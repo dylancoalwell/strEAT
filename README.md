@@ -1,4 +1,4 @@
-# strEAT [![Build Status](https://travis-ci.org/dylancoalwell/strEAT.svg?branch=master)](https://travis-ci.org/dylancoalwell/strEAT)
+# strEAT
 
 ### Team Members:
 * Dan Park @DanielJPark
