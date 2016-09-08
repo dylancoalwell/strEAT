@@ -1,4 +1,8 @@
 function handleFriendRouteGeneration() {
+  // this is currently uses functions declared
+  // in the global scope to find things along a route.
+  // the file containing the global functions is directions.js
+
   // console.log($(location).attr('href'))
   var directionsService = new google.maps.DirectionsService;
   var directionsRenderer = new google.maps.DirectionsRenderer;
@@ -14,9 +18,10 @@ function handleFriendRouteGeneration() {
       zoom: 10,
       center: new google.maps.LatLng(response.origin.lat, response.origin.lng)
     });
+    console.log(map)
     directionsRenderer.setMap(map)
 
-        calculateAndDisplayRoute(directionsService, directionsRenderer, response.origin, response.destination)
+    calculateAndDisplayRoute(directionsService, directionsRenderer, response.origin, response.destination)
  })
 
 
