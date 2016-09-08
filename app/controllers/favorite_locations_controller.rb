@@ -7,11 +7,7 @@ class FavoriteLocationsController < ApplicationController
   end
 
   def new
-    if logged_in? && (@user == current_user)
-      @user = User.find_by_id(params[:id])
-    else
-      redirect_to root_path
-    end
+    @user = User.find_by_id(params[:id])
   end
 
   def create

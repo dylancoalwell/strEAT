@@ -2635,7 +2635,7 @@ ul li {
 }
 
 a {
-  color: #039be5;
+  color: #263238;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -4289,7 +4289,7 @@ nav .input-field label.active i {
 
 a {
   text-decoration: none;
-  color: #b71c1c;
+  color: #000000;
 }
 
 html {
@@ -8500,4 +8500,9 @@ html {
 
 #profile-picture {
   margin: 5%;
+}
+
+#logo-id-woo {
+  max-width: 100%;
+  height: auto;
 }
