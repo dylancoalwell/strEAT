@@ -1,4 +1,4 @@
-$(function () {
+function userShowController() {
   $("#contact-location-request").on('submit', function(event) {
     event.preventDefault();
     $self = $(this)
@@ -6,7 +6,7 @@ $(function () {
       handleRouteToFriend(event, $self, position);
     })
   });
-});
+}
 
 function handleRouteToFriend(event, form, position) {
   message = form.find("#invite_message").val()

@@ -12,7 +12,12 @@ function handleFriendRouteGeneration() {
 
   routeDataRequest.done(function (response) {
     console.log(response)
-
+    currentPosition = {
+      coords: {
+        latitude: response.origin.lat,
+        longitude: response.origin.lng
+      }
+    }
 
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
