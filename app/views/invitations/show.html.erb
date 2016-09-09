@@ -1,14 +1,18 @@
-<div>
+<div class='center'>
   <h4><%= @invitation.sender.first_name %> <%= @invitation.sender.last_name %></h4>
   <div>
-    <p>has invited to meet you for a meal. <%= @invitation.message %></p>
+    <p>has invited to meet you for a meal. <%= @invitation.message %></p><br>
   </div>
   <div>
     <%= form_for delete_invitation_path(@invitation), method: 'delete' do |f| %>
+    <div class='waves-effect waves-light btn blue-grey darken-1 center-buttons'>
       <%= f.submit 'decline' %>
+    </div>
     <% end %>
-    <%= form_for accept_invitation_path(@invitation), method: 'post', :html => {:id => 'invitation-acceptance-post'} do |f| %>
-    <%= f.submit 'accept' %>
+    <%= form_for accept_invitation_path(@invitation), method: 'post', :html => {:id => 'invitation-acceptance-post'} do |f| %><br>
+    <div class='waves-effect waves-light btn blue-grey darken-1 center-buttons'>
+      <%= f.submit 'accept' %>
+    </div>
     <% end %>
   </div>
 </div>
